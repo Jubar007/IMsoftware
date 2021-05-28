@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\logindialog.o
+./debug\filesrvdlg.o
+./debug\filecntdlg.o
+./debug\qrc_res.o
+./debug\moc_mainwindow.o
+./debug\moc_logindialog.o
+./debug\moc_filesrvdlg.o
+./debug\moc_filecntdlg.o
+);

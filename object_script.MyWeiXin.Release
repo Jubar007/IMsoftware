@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\logindialog.o
+./release\filesrvdlg.o
+./release\filecntdlg.o
+./release\qrc_res.o
+./release\moc_mainwindow.o
+./release\moc_logindialog.o
+./release\moc_filesrvdlg.o
+./release\moc_filecntdlg.o
+);
