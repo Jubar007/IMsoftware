@@ -31,9 +31,6 @@
    <property name="text">
     <string/>
    </property>
-   <property name="pixmap">
-    <pixmap>login.jpg</pixmap>
-   </property>
    <property name="scaledContents">
     <bool>false</bool>
    </property>
