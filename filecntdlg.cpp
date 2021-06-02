@@ -41,7 +41,7 @@ void FileCntDlg::createConnToSrv()
 void FileCntDlg::readChatMsg()
 {
     QDataStream in(myCntSocket);
-    in.setVersion(QDataStream::Qt_5_1);
+    in.setVersion(QDataStream::Qt_5_9);
     float usedTime = mytime.elapsed();
     if (myRcvedBytes <= sizeof(qint64)*2)
     {
