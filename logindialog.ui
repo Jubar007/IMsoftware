@@ -6,24 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>702</width>
+    <width>280</width>
     <height>400</height>
    </rect>
   </property>
-  <property name="font">
-   <font>
-    <family>微软雅黑</family>
-    <pointsize>11</pointsize>
-   </font>
-  </property>
   <property name="windowTitle">
-   <string>简聊</string>
+   <string>微 信 客 户 端</string>
   </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>280</width>
+     <height>400</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+  </widget>
   <widget class="QPushButton" name="loginPushButton">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>310</y>
+     <x>36</x>
+     <y>258</y>
      <width>212</width>
      <height>43</height>
     </rect>
@@ -31,9 +47,9 @@
    <property name="font">
     <font>
      <family>微软雅黑</family>
-     <pointsize>12</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
@@ -46,18 +62,16 @@
   <widget class="QLineEdit" name="usrLineEdit">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>190</y>
-     <width>201</width>
-     <height>31</height>
+     <x>85</x>
+     <y>215</y>
+     <width>113</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>微软雅黑</family>
-     <pointsize>12</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
+     <pointsize>10</pointsize>
     </font>
    </property>
    <property name="text">
@@ -70,19 +84,11 @@
   <widget class="QLineEdit" name="pwdLineEdit">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>250</y>
-     <width>201</width>
-     <height>31</height>
+     <x>85</x>
+     <y>235</y>
+     <width>113</width>
+     <height>20</height>
     </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>微软雅黑</family>
-     <pointsize>12</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
    </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>

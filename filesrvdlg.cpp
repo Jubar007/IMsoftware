@@ -33,7 +33,7 @@ void FileSrvDlg::sndChatMsg()
     myLocPathFile->open((QFile::ReadOnly));
     myTotalBytes = myLocPathFile->size();
     QDataStream sendOut(&myOutputBlock, QIODevice::WriteOnly);
-    sendOut.setVersion(QDataStream::Qt_5_9);
+    sendOut.setVersion(QDataStream::Qt_5_1);
     mytime.start();  // 开始计时
     QString curFile = myPathFile.right(myPathFile.size() - myPathFile.lastIndexOf('/') - 1);
     sendOut << qint64(0) << qint64(0) << curFile;

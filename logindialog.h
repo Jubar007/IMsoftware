@@ -1,5 +1,5 @@
-#ifndef SQLITEHELPER_H
-#define SQLITEHELPER_H
+#ifndef LOGINDIALOG_H
+#define LOGINDIALOG_H
 
 #include <QDialog>
 #include "mainwindow.h"
@@ -18,14 +18,13 @@ public:
     explicit LoginDialog(QWidget *parent = 0);
     ~LoginDialog();
 
-public:
-    void showChatWindow();
-     void paintEvent(QPaintEvent *);
-     int  usrid;//用户的账号id
+private slots:
+    void on_loginPushButton_clicked();
+    void showWeiChatWindow();
 
 private:
     Ui::LoginDialog *ui;
-    MainWindow *chatWindow;
+    MainWindow *weiChatWindow;
     QDomDocument mydoc;
 };
 
