@@ -1,10 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>img/bar.jpg</file>
-        <file>img/login.jpg</file>
-        <file>img/search.jpg</file>
-        <file>img/title.jpg</file>
-        <file>img/tool.jpg</file>
-        <file>img/wei.jpg</file>
+        <file>sqlite/simpleChat.db</file>
     </qresource>
 </RCC>
