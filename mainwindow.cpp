@@ -82,12 +82,12 @@ void MainWindow::on_listView_clicked(const QModelIndex &index)
     //弹出聊天控件
     //创建聊天记录文件
     p2p(clickname);  //点击的名字和自己的名字
-    groupChat();
+    //groupChat();
 }
 //聊天记录里保存
 void MainWindow::chatHistory(QString clickname)
 {
-    QString historyPath ="F:/Download/"+myname+"to"+ clickname+".txt";
+    QString historyPath ="./"+myname+"to"+ clickname+".txt";
     QFile fp(historyPath);
     //不存在就创建  存在就追加写
     if (!fp.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -116,7 +116,7 @@ void MainWindow::p2p(QString clickname)
     userTextBrower->setCurrentFont(QFont("Times New Roman", 14));
 
     //根据clickname 读取聊天记录文件
-    QString historyPath = "F:/Download/"+myname+"to"+ clickname+".txt";
+    QString historyPath = "./"+myname+"to"+ clickname+".txt";
     QFile fps(historyPath);
     if (!fps.open(QIODevice::ReadWrite | QIODevice::Text))
      {
@@ -218,6 +218,16 @@ void MainWindow::recvAndProcessChatMsg()
                 userTextBrower->update();
                 chatHistory(clickname);
             }
+            else if(udpclickname ==groupname&&clickname == udpmyname)
+            {
+                if(groupChat(myname)==myname)
+                {
+                    userTextBrower->append("[" +udpmyname + "]" + curtime);
+                    userTextBrower->append(chatmsg);
+                    userTextBrower->update();
+                    chatHistory(clickname);
+                }
+            }
 
             break;
         }
@@ -262,12 +272,12 @@ QString MainWindow::getLocHostIp()
 }
 
 //建立群组
-void MainWindow::groupChat()
+QString MainWindow::groupChat(QString myname)
 {
     QStringList groupList,result;
     groupList<<"杨磊" << "吴汶憶" << "李群" ;
-    result = groupList.filter("吴汶憶",Qt::CaseInsensitive);
-    qDebug()<<result[0];
+    result = groupList.filter(myname,Qt::CaseInsensitive);
+    return result[0];
 }
 
 //文件发送按钮

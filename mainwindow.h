@@ -37,7 +37,7 @@ public:
     void recvFileName(QString name, QString hostip, QString rmtname, QString filename);
     QTextBrowser *userTextBrower=0;
     void p2p(QString);
-    void groupChat();
+    QString groupChat(QString);
     void chatHistory(QString);
 protected:
     //用户列表数据
@@ -62,6 +62,7 @@ private:
     QStandardItemModel *m_pModel;
     QString myname = "";//本端用户名
     QString clickname = "";//选中私聊用户名
+    QString groupname = ""; //群组名
     QUdpSocket *myUdpSocket;  //UDP套接口指针
     qint16 myUdpPort;          //UDP端口号
     QDomDocument myDoc;
