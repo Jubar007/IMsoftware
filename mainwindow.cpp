@@ -12,6 +12,7 @@
 #include <QSqlDriver>
 #include <QList>
 #include <QStringList>
+#include "sqlite.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -42,25 +43,27 @@ void MainWindow::initMainWindow()
 }
 void MainWindow:: getFriendsList(QString usrid){
     QTextCodec::setCodecForLocale (QTextCodec:: codecForLocale ()) ;
-    QSqlDatabase db;
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-                 db = QSqlDatabase::database("qt_sql_default_connection");
-               else
-                 db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("D:\\02_work\\04_QT\\04_IMsoft\\MyWeiXin0531\\sqlite\\simpleChat.db");
-    if(!db.open()){
-        qDebug()<<db.lastError().text();
-        return;
-    }
-    QSqlQuery query;
-    //qDebug()<<"select U_HeadPortrait,F_Name,U_SignaTure from Friends,User where Friends.F_UserID = "+usrid+" and Friends.F_FirendID = User.U_ID";
-    if(query.exec("select U_HeadPortrait,F_Name,U_SignaTure from Friends,User where Friends.F_UserID = "+usrid+" and Friends.F_FirendID = User.U_ID"))
+    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
+    QString sql ="select U_ID,U_HeadPortrait,F_Name,U_NickName,U_SignaTure,U_Sex,U_Birthday,U_Telephone,U_Email,US_Name from Friends,User,UserState where Friends.F_UserID ="+usrid+" and Friends.F_FirendID = User.U_ID and User.U_UserStateID = UserState.US_ID";
+    if(db->db_query(sql))
     {
-        while(query.next()){
-            //qDebug()<<query.value("U_HeadPortrait").toString()<<query.value("F_Name").toString()<<query.value("U_SignaTure").toString();
-            headpics.append(query.value("U_HeadPortrait").toString());
-            names.append(query.value("F_Name").toString());
-            userSignal.append(query.value("U_SignaTure").toString());
+        while(db->query.next()){
+            //ListView绑定
+            headpics.append(db->query.value("U_HeadPortrait").toString());
+            names.append(db->query.value("F_Name").toString());
+            userSignal.append(db->query.value("U_SignaTure").toString());
+
+            QStringList info;
+            info.append(db->query.value("U_ID").toString());
+            info.append(db->query.value("U_NickName").toString());
+            info.append(db->query.value("U_SignaTure").toString());
+            info.append(db->query.value("U_Sex").toString());
+            info.append(db->query.value("U_Birthday").toString());
+            info.append(db->query.value("U_Telephone").toString());
+             info.append(db->query.value("U_Email").toString());
+            info.append(db->query.value("U_HeadPortrait").toString());
+            info.append(db->query.value("US_Name").toString());
+            usrInfo.append(info);
         }
      }
 }
@@ -71,16 +74,33 @@ void MainWindow::on_listView_clicked(const QModelIndex &index)
     ui->OriginalBg->setVisible(false);//聊天背景不可见
     //获取选中的用户信息
     QVariant var = index.data(Qt::UserRole+1);
+    //qDebug()<<index.row()<<index.column();
     UserItemData ItemData = var.value<UserItemData>();
     QString sUserName = ItemData.sUserName;
-    clickname = sUserName;
     QString headpics = ItemData.sHeadPic;
     ui->FriendNameLabel->setText(sUserName);
     ui->StateLabel->setText("在线");
-    ui->FriendHead->setPixmap(QPixmap(headpics));
+    QPixmap pix;
+    QImage image(headpics);//filename，图片的路径名字
+    ui->FriendHead->setPixmap(pix.fromImage(image));// ui->pix就是label的控件名字
+    ui->FriendHead->setScaledContents(true);
+    ui->FriendHead->show();
+    //资料卡片内容对应变化
+    int s = index.row()+1;
+    QPixmap pix1;
+    QImage image1(usrInfo[s][7]);//filename，图片的路径名字
+    ui->userHead->setPixmap(pix1.fromImage(image1));// ui->pix就是label的控件名字
+    ui->userHead->setScaledContents(true);
+    ui->userHead->show();
+    ui->label->setText(usrInfo[s][1]);
+    ui->sexLabel->setText(usrInfo[s][3]);
+    ui->birthdayLabel->setText(usrInfo[s][4]);
+    ui->EmailLabel->setText(usrInfo[s][6]);
+    ui->PhoneLabel->setText(usrInfo[s][5]);
+    ui->introLabel->setText(usrInfo[s][2]);
+    clickname = sUserName;
 
-    //弹出聊天控件
-    //创建聊天记录文件
+    //弹出聊天控
     p2p(clickname);  //点击的名字和自己的名字
     //groupChat();
 }
@@ -133,12 +153,23 @@ void MainWindow::p2p(QString clickname)
 }
 
 //显示好友列表
-void MainWindow::sendUserData(int data)
+void MainWindow::sendUserData(QList<QStringList> data)
 {
-    myname = this->windowTitle();
-    usrid = QString::number(data);
+    usrInfo = data;
+    //绑定个人资料控件
+    QPixmap pix;
+    QImage image(data[0][7]);//filename，图片的路径名字
+    ui->userHead->setPixmap(pix.fromImage(image));// ui->pix就是label的控件名字
+    ui->userHead->setScaledContents(true);
+    ui->userHead->show();
+    ui->label->setText(data[0][1]);
+    ui->sexLabel->setText(data[0][3]);
+    ui->birthdayLabel->setText(data[0][4]);
+    ui->EmailLabel->setText(data[0][6]);
+    ui->PhoneLabel->setText(data[0][5]);
+    ui->introLabel->setText(data[0][2]);
     //获取当前用户的好友列表-->更新用户列表数据
-    getFriendsList(usrid);
+    getFriendsList(data[0][0]);
     //循环插入数据
     m_pModel = new QStandardItemModel;
     for (int i=0; i<headpics.size(); ++i) {

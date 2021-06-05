@@ -27,7 +27,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();    
     void initMainWindow();
-    void sendUserData(int data); //在子窗口创建public函数用来获取传递的数据
+    void sendUserData(QList<QStringList> data); //在子窗口创建public函数用来获取传递的数据
     void getFriendsList(QString usrid); //好友列表数据获取
     void onLine(QString name, QString time);//处理新用户加入
     void offLine(QString name, QString time);//处理用户离开
@@ -40,6 +40,8 @@ public:
     QString groupChat(QString);
     void chatHistory(QString);
 protected:
+    //用户及用户的好友数据
+    QList<QStringList> usrInfo;
     //用户列表数据
     QStringList headpics;
     QStringList names;

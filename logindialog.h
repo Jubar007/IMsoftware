@@ -20,9 +20,10 @@ public:
 
 public:
     void showChatWindow();
-     void paintEvent(QPaintEvent *);
-     int  usrid;//用户的账号id
+    void paintEvent(QPaintEvent *);
+    QList<QStringList> usrsInfo;
 
+private slots:
 private:
     Ui::LoginDialog *ui;
     MainWindow *chatWindow;
