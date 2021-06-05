@@ -7,7 +7,7 @@
 #include <QTcpSocket>
 #include <QHostAddress>
 
-class QTcpSocket;
+class QTcpSocketFGHGFHGFJF;
 
 namespace Ui {
 class FileCntDlg;
