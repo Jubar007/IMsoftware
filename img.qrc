@@ -7,9 +7,16 @@
         <file>img/tool.jpg</file>
         <file>img/wei.jpg</file>
         <file>img/bgLogin.jpg</file>
-        <file>img/boy.png</file>
-        <file>img/girl.png</file>
         <file>img/ChatBG.jpg</file>
         <file>img/file.png</file>
+        <file>img/navBottom.jpg</file>
+        <file>img/navBottom_UG.jpg</file>
+        <file>img/group1.png</file>
+        <file>img/group2.png</file>
+        <file>img/group3.png</file>
+        <file>img/boy.png</file>
+        <file>img/girl.png</file>
+        <file>img/InfoBg.jpg</file>
+        <file>img/InfoGroupBg.jpg</file>
     </qresource>
 </RCC>

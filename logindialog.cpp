@@ -72,6 +72,7 @@ void LoginDialog::showChatWindow()
                             return;
                         }
                         else{
+                            usrsInfo.clear();//清除之前用户登录的数据
                             //添加当前用户信息
                             QStringList info;
                             info.append(db->query.value("U_ID").toString());

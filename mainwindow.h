@@ -39,9 +39,17 @@ public:
     void p2p(QString);
     QString groupChat(QString);
     void chatHistory(QString);
+    bool isContacts;//底部导航栏选中标识
+    void contactVisible(bool);
+    void GroupVisible(bool);
+    void getGroupMenbers(QString);
 protected:
     //用户及用户的好友数据
     QList<QStringList> usrInfo;
+    //用户加入群的信息
+    QList<QStringList> usrGroupInfo;
+    //群成员信息
+    QList<QStringList> groupMenInfo;
     //用户列表数据
     QStringList headpics;
     QStringList names;
@@ -59,6 +67,10 @@ private slots:
    void getSfileName(QString);
 
     void on_transPushButton_clicked();
+    void on_contactsPushButton_clicked();
+
+    void on_groupPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QStandardItemModel *m_pModel;
