@@ -62,6 +62,7 @@ int Sqlite::db_query(QString m_query_sql)
 
     int Sqlite::add(QString table_name, QMap<QString, QString> data)
 {
+
      QString sql="insert into "+table_name+  "(";
      QString values=" values(";
      for(QMap<QString,QString>::const_iterator i=data.constBegin();i!=data.constEnd();i++)
