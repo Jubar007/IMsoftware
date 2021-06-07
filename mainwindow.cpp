@@ -12,6 +12,7 @@
 #include <QSqlDriver>
 #include <QList>
 #include <QStringList>
+#include "sqlite.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,10 +21,24 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);    
     initMainWindow();
     QPixmap pix;
+    //初始聊天界面被一张图片盖住
     QImage image(":/img/ChatBG.jpg");
     ui->OriginalBg->setPixmap(pix.fromImage(image));
     ui->OriginalBg->setScaledContents(true);
     ui->OriginalBg->show();
+    //好友列表下方导航栏的制作
+    QImage image2(":/img/navBottom.jpg");
+    ui->navLabel->setPixmap(pix.fromImage(image2));
+    ui->navLabel->setScaledContents(true);
+    ui->navLabel->show();
+    //资料卡片背景图
+    QImage image3(":/img/InfoBg.jpg");
+    ui->HeadTitleBg->setPixmap(pix.fromImage(image3));
+    ui->HeadTitleBg->setScaledContents(true);
+    ui->HeadTitleBg->show();
+    //默认选中联系人
+    isContacts = true;
+    GroupVisible(false);//群聊控件不可见
 }
 MainWindow::~MainWindow()
 {
@@ -42,47 +57,165 @@ void MainWindow::initMainWindow()
 }
 void MainWindow:: getFriendsList(QString usrid){
     QTextCodec::setCodecForLocale (QTextCodec:: codecForLocale ()) ;
-    QSqlDatabase db;
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-                 db = QSqlDatabase::database("qt_sql_default_connection");
-               else
-                 db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("D:\\02_work\\04_QT\\04_IMsoft\\MyWeiXin0531\\sqlite\\simpleChat.db");
-    if(!db.open()){
-        qDebug()<<db.lastError().text();
-        return;
-    }
-    QSqlQuery query;
-    //qDebug()<<"select U_HeadPortrait,F_Name,U_SignaTure from Friends,User where Friends.F_UserID = "+usrid+" and Friends.F_FirendID = User.U_ID";
-    if(query.exec("select U_HeadPortrait,F_Name,U_SignaTure from Friends,User where Friends.F_UserID = "+usrid+" and Friends.F_FirendID = User.U_ID"))
+    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
+    QString sql ="select U_ID,U_HeadPortrait,F_Name,U_NickName,U_SignaTure,U_Sex,U_Birthday,U_Telephone,U_Email,US_Name,FG_Name from Friends,User,UserState,FriendGroups where Friends.F_UserID ="+usrid+" and Friends.F_FirendID = User.U_ID and User.U_UserStateID = UserState.US_ID and FriendGroups.FG_UserID = "+usrid;
+    if(db->db_query(sql))
     {
-        while(query.next()){
-            //qDebug()<<query.value("U_HeadPortrait").toString()<<query.value("F_Name").toString()<<query.value("U_SignaTure").toString();
-            headpics.append(query.value("U_HeadPortrait").toString());
-            names.append(query.value("F_Name").toString());
-            userSignal.append(query.value("U_SignaTure").toString());
+        while(db->query.next()){
+            //ListView绑定
+            headpics.append(db->query.value("U_HeadPortrait").toString());
+            names.append(db->query.value("F_Name").toString());
+            userSignal.append(db->query.value("U_SignaTure").toString());
+            //用户及用户的好友数据更新
+            QStringList info;
+            info.append(db->query.value("U_ID").toString());
+            info.append(db->query.value("U_NickName").toString());
+            info.append(db->query.value("U_SignaTure").toString());
+            info.append(db->query.value("U_Sex").toString());
+            info.append(db->query.value("U_Birthday").toString());
+            info.append(db->query.value("U_Telephone").toString());
+             info.append(db->query.value("U_Email").toString());
+            info.append(db->query.value("U_HeadPortrait").toString());
+            info.append(db->query.value("US_Name").toString());
+            info.append(db->query.value("FG_Name").toString());
+            usrInfo.append(info);
         }
      }
 }
-
+//联系人资料卡片可见设置
+void  MainWindow::contactVisible(bool canv){
+    if(canv){
+        QPixmap pix;
+        QImage image3(":/img/InfoBg.jpg");
+        ui->HeadTitleBg->setPixmap(pix.fromImage(image3));
+        ui->HeadTitleBg->setScaledContents(true);
+        ui->HeadTitleBg->show();
+    }
+    ui->userHead->setVisible(canv);
+    ui->label->setVisible(canv);
+    ui->sexLabel->setVisible(canv);
+    ui->birthdayLabel->setVisible(canv);
+    ui->EmailLabel->setVisible(canv);
+    ui->PhoneLabel->setVisible(canv);
+    ui->introLabel->setVisible(canv);
+    ui->nickNameLabel->setVisible(canv);
+    ui->groupLabel->setVisible(canv);
+}
+//群聊资料卡片控件可见性设置
+ void  MainWindow::GroupVisible(bool canv){
+     if(canv){
+         QPixmap pix;
+         QImage image3(":/img/InfoGroupBg.jpg");
+         ui->HeadTitleBg->setPixmap(pix.fromImage(image3));
+         ui->HeadTitleBg->setScaledContents(true);
+         ui->HeadTitleBg->show();
+     }
+     ui->G_groupHead->setVisible(canv);
+     ui->G_groupNameLabel->setVisible(canv);
+     ui->G_introLabel->setVisible(canv);
+     ui->G_NoticeLabel->setVisible(canv);
+     ui->G_menberTitleLabel->setVisible(canv);
+     ui->G_listView->setVisible(canv);
+ }
 //单击鼠标单击item信息
 void MainWindow::on_listView_clicked(const QModelIndex &index)
 {
     ui->OriginalBg->setVisible(false);//聊天背景不可见
     //获取选中的用户信息
     QVariant var = index.data(Qt::UserRole+1);
+    //qDebug()<<index.row()<<index.column();
     UserItemData ItemData = var.value<UserItemData>();
     QString sUserName = ItemData.sUserName;
-    clickname = sUserName;
     QString headpics = ItemData.sHeadPic;
     ui->FriendNameLabel->setText(sUserName);
-    ui->StateLabel->setText("在线");
-    ui->FriendHead->setPixmap(QPixmap(headpics));
+    ui->StateLabel->setText("");
+    QPixmap pix;
+    QImage image(headpics);//filename，图片的路径名字
+    ui->FriendHead->setPixmap(pix.fromImage(image));// ui->pix就是label的控件名字
+    ui->FriendHead->setScaledContents(true);
+    ui->FriendHead->show();
+    //资料卡片内容对应变化
+    //判断选中的导航栏是联系人还是群聊
+    if(isContacts){
+    int s = index.row()+1;
+    QPixmap pix1;
+    QImage image1(usrInfo[s][7]);//filename，图片的路径名字
+    ui->userHead->setPixmap(pix1.fromImage(image1));// ui->pix就是label的控件名字
+    ui->userHead->setScaledContents(true);
+    ui->userHead->show();
+    ui->label->setText(usrInfo[s][1]);
+    if(usrInfo[s][3] == "1")
+        ui->sexLabel->setText("性别: 男");
+    else if(usrInfo[s][3] == "2")
+        ui->sexLabel->setText("性别: 女");
+    else
+        ui->sexLabel->setText("性别: 未知");
+    ui->birthdayLabel->setText("生日: "+usrInfo[s][4].mid(0, 10));
+    ui->EmailLabel->setText("邮箱: "+usrInfo[s][6]);
+    ui->PhoneLabel->setText("联系方式: "+usrInfo[s][5]);
+    ui->introLabel->setText(usrInfo[s][2]);
+    ui->nickNameLabel->setText("备注: "+sUserName);
+    ui->groupLabel->setText("分组: "+usrInfo[s][9]);
 
-    //弹出聊天控件
-    //创建聊天记录文件
+    }else{
+        //控件可见性设置
+        contactVisible(false);
+        GroupVisible(true);
+        int s = index.row();
+        QPixmap pix1;
+        QImage image1(usrGroupInfo[s][2]);//filename，图片的路径名字
+        ui->G_groupHead->setPixmap(pix1.fromImage(image1));// ui->pix就是label的控件名字
+        ui->G_groupHead->setScaledContents(true);
+        ui->G_groupHead->show();
+        ui->G_groupNameLabel->setText(usrGroupInfo[s][0]);
+        if(usrGroupInfo[s][4]!="")
+            ui->G_introLabel->setText("群介绍: "+usrGroupInfo[s][4]);
+        else
+            ui->G_introLabel->setText("群介绍: 暂无");
+        if(usrGroupInfo[s][3]!="")
+            ui->G_NoticeLabel->setText("群公告: "+usrGroupInfo[s][3]);
+        else
+             ui->G_NoticeLabel->setText("群公告: 暂无");
+        getGroupMenbers(usrGroupInfo[s][0]);
+    }
+    clickname = sUserName;
+    //弹出聊天控
     p2p(clickname);  //点击的名字和自己的名字
     //groupChat();
+}
+//群成员的显示
+void MainWindow::getGroupMenbers(QString groupName){
+    QString sql = "select U_NickName,U_HeadPortrait,UG_ID,U_ID from User_Groups,User_GroupsToUser,User where UG_Name =\""+groupName+"\" and User_GroupsToUser.UG_UserID = User.U_ID and User_GroupsToUser.UG_GroupID = User_Groups.UG_ID";
+    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
+    groupMenInfo.clear();
+    if(db->db_query(sql))
+    {
+        while(db->query.next()){
+            //用户及用户的好友数据更新
+            QStringList info;
+            info.append(db->query.value("U_NickName").toString());
+            info.append(db->query.value("U_HeadPortrait").toString());
+            info.append(db->query.value("UG_ID").toString());
+            info.append(db->query.value("U_ID").toString());
+            groupMenInfo.append(info);
+        }
+     }
+    m_pModel = new QStandardItemModel;
+    for (int i=0; i<groupMenInfo.size(); ++i) {
+        QStandardItem *pItem = new QStandardItem;
+        UserItemData ItemData;
+        ItemData.sUserName = groupMenInfo[i][0];
+        if(groupMenInfo[i][2] == groupMenInfo[i][3])
+            ItemData.userSignalTrue = "群主";
+        else
+            ItemData.userSignalTrue = "成员";
+        ItemData.sHeadPic = groupMenInfo[i][1];
+        pItem->setData(QVariant::fromValue(ItemData), Qt::UserRole+1);
+        m_pModel->appendRow(pItem);
+    }
+    UserItemDelegate* pUserItemDelegate = new UserItemDelegate;
+    ui->G_listView->setItemDelegate(pUserItemDelegate);
+    ui->G_listView->setModel(m_pModel);
 }
 //聊天记录里保存
 void MainWindow::chatHistory(QString clickname)
@@ -133,12 +266,29 @@ void MainWindow::p2p(QString clickname)
 }
 
 //显示好友列表
-void MainWindow::sendUserData(int data)
+void MainWindow::sendUserData(QList<QStringList> data)
 {
-    myname = this->windowTitle();
-    usrid = QString::number(data);
+    usrInfo = data;
+    //绑定个人资料控件
+
+    QPixmap pix;
+    QImage image(data[0][7]);//filename，图片的路径名字
+    ui->userHead->setPixmap(pix.fromImage(image));// ui->pix就是label的控件名字
+    ui->userHead->setScaledContents(true);
+    ui->userHead->show();
+    ui->label->setText(usrInfo[0][1]);
+    if(usrInfo[0][3] == "1")
+        ui->sexLabel->setText("性别: 男");
+    else if(usrInfo[0][3] == "2")
+        ui->sexLabel->setText("性别: 女");
+    else
+        ui->sexLabel->setText("性别: 未知");
+    ui->birthdayLabel->setText("生日: "+usrInfo[0][4].mid(0, 10));
+    ui->EmailLabel->setText("邮箱: "+usrInfo[0][6]);
+    ui->PhoneLabel->setText("联系方式: "+usrInfo[0][5]);
+    ui->introLabel->setText(usrInfo[0][2]);
     //获取当前用户的好友列表-->更新用户列表数据
-    getFriendsList(usrid);
+    getFriendsList(data[0][0]);
     //循环插入数据
     m_pModel = new QStandardItemModel;
     for (int i=0; i<headpics.size(); ++i) {
@@ -321,3 +471,77 @@ void MainWindow::recvFileName(QString name, QString hostip, QString rmtname, QSt
 }
 
 
+//点击导航栏联系人按钮
+void MainWindow::on_contactsPushButton_clicked()
+{
+    //控件可见性设置
+    contactVisible(true);
+    GroupVisible(false);
+    isContacts = true;
+    QPixmap pix;
+    //好友列表下方导航栏的制作
+    QImage image(":/img/navBottom.jpg");
+    ui->navLabel->setPixmap(pix.fromImage(image));
+    ui->navLabel->setScaledContents(true);
+    ui->navLabel->show();
+    //绑定ListView
+    m_pModel = new QStandardItemModel;
+    for (int i=1; i<usrInfo.size(); ++i) {
+        QStandardItem *pItem = new QStandardItem;
+        UserItemData ItemData;
+        ItemData.sUserName = usrInfo[i][1];
+        ItemData.userSignalTrue = usrInfo[i][2];
+        ItemData.sHeadPic = usrInfo[i][7];
+        pItem->setData(QVariant::fromValue(ItemData), Qt::UserRole+1);
+        m_pModel->appendRow(pItem);
+    }
+    UserItemDelegate* pUserItemDelegate = new UserItemDelegate;
+    ui->listView->setItemDelegate(pUserItemDelegate);
+    ui->listView->setModel(m_pModel);
+}
+
+//点击导航栏群聊按钮
+void MainWindow::on_groupPushButton_clicked()
+{
+    isContacts = false;
+    QPixmap pix;
+    //好友列表下方导航栏的制作
+    QImage image(":/img/navBottom_UG.jpg");
+    ui->navLabel->setPixmap(pix.fromImage(image));
+    ui->navLabel->setScaledContents(true);
+    ui->navLabel->show();
+    //数据库操作
+    QString sqltoGroup = "select UG_Name,UG_AdminID,UG_ICon,UG_Notice,UG_Intro from User_Groups,User_GroupsToUser where User_GroupsToUser.UG_UserID = "+usrInfo[0][0]+" and User_Groups.UG_ID = User_GroupsToUser.UG_GroupID";
+    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
+    usrGroupInfo.clear();
+    if(db->db_query(sqltoGroup))
+    {
+        while(db->query.next()){
+            //用户及用户的好友数据更新
+            QStringList info;
+            info.append(db->query.value("UG_Name").toString());
+            info.append(db->query.value("UG_AdminID").toString());
+            if(db->query.value("UG_ICon").toString()!="")
+                info.append(db->query.value("UG_ICon").toString());
+            else
+                info.append(":/img/group3.png");
+            info.append(db->query.value("UG_Notice").toString());
+            info.append(db->query.value("UG_Intro").toString());
+            usrGroupInfo.append(info);
+        }
+     }
+    //绑定ListView
+    m_pModel = new QStandardItemModel;
+    for (int i=0; i<usrGroupInfo.size(); ++i) {
+        QStandardItem *pItem = new QStandardItem;
+        UserItemData ItemData;
+        ItemData.sUserName = usrGroupInfo[i][0];
+        ItemData.userSignalTrue = usrGroupInfo[i][4];
+        ItemData.sHeadPic = usrGroupInfo[i][2];
+        pItem->setData(QVariant::fromValue(ItemData), Qt::UserRole+1);
+        m_pModel->appendRow(pItem);
+    }
+    UserItemDelegate* pUserItemDelegate = new UserItemDelegate;
+    ui->listView->setItemDelegate(pUserItemDelegate);
+    ui->listView->setModel(m_pModel);
+}

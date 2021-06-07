@@ -87,7 +87,7 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>10</y>
+      <y>9</y>
       <width>121</width>
       <height>31</height>
      </rect>
@@ -156,39 +156,23 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="searchPushButton">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>191</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QListView" name="listView">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>65</y>
       <width>250</width>
-      <height>435</height>
+      <height>391</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="userHead">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>10</y>
-      <width>71</width>
-      <height>71</height>
+      <x>833</x>
+      <y>30</y>
+      <width>60</width>
+      <height>55</height>
      </rect>
     </property>
     <property name="text">
@@ -220,115 +204,83 @@
    <widget class="QLabel" name="HeadTitleBg">
     <property name="geometry">
      <rect>
-      <x>743</x>
+      <x>740</x>
       <y>1</y>
-      <width>251</width>
-      <height>131</height>
+      <width>255</width>
+      <height>500</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>180</y>
-      <width>41</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>生日</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="birthdayLabel">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>210</y>
-      <width>121</width>
-      <height>16</height>
+      <x>775</x>
+      <y>171</y>
+      <width>190</width>
+      <height>18</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>birthday</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>240</y>
-      <width>51</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Email</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="EmailLabel">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>270</y>
-      <width>121</width>
-      <height>16</height>
+      <x>775</x>
+      <y>276</y>
+      <width>190</width>
+      <height>18</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Email@edu.cn</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>300</y>
-      <width>51</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>电话</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="PhoneLabel">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>330</y>
-      <width>121</width>
-      <height>16</height>
+      <x>775</x>
+      <y>311</y>
+      <width>190</width>
+      <height>18</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>+86XXX</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_8">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>130</y>
-      <width>41</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>性别</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="sexLabel">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>156</y>
-      <width>121</width>
-      <height>16</height>
+      <x>775</x>
+      <y>136</y>
+      <width>190</width>
+      <height>18</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>sex</string>
@@ -337,11 +289,16 @@
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>360</y>
-      <width>71</width>
-      <height>21</height>
+      <x>775</x>
+      <y>346</y>
+      <width>190</width>
+      <height>18</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>个人简介</string>
@@ -351,9 +308,9 @@
     <property name="geometry">
      <rect>
       <x>790</x>
-      <y>390</y>
+      <y>370</y>
       <width>161</width>
-      <height>71</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -405,10 +362,10 @@
    <widget class="QLabel" name="FriendHead">
     <property name="geometry">
      <rect>
-      <x>264</x>
-      <y>8</y>
-      <width>50</width>
-      <height>50</height>
+      <x>272</x>
+      <y>14</y>
+      <width>45</width>
+      <height>40</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -421,10 +378,10 @@
    <widget class="QLabel" name="OriginalBg">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>230</y>
-      <width>581</width>
-      <height>521</height>
+      <x>250</x>
+      <y>0</y>
+      <width>491</width>
+      <height>500</height>
      </rect>
     </property>
     <property name="text">
@@ -456,8 +413,222 @@
      </size>
     </property>
    </widget>
-   <zorder>HeadTitleBg</zorder>
+   <widget class="QLabel" name="navLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>450</y>
+      <width>250</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../../微信/img/search.jpg</pixmap>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="contactsPushButton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>450</y>
+      <width>125</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::DefaultContextMenu</enum>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="groupPushButton">
+    <property name="geometry">
+     <rect>
+      <x>125</x>
+      <y>450</y>
+      <width>125</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::DefaultContextMenu</enum>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="nickNameLabel">
+    <property name="geometry">
+     <rect>
+      <x>775</x>
+      <y>206</y>
+      <width>190</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>nickNameLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="groupLabel">
+    <property name="geometry">
+     <rect>
+      <x>775</x>
+      <y>241</y>
+      <width>190</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>groupLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="G_groupHead">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>20</y>
+      <width>60</width>
+      <height>55</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="G_groupNameLabel">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>27</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>黑体</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>G_group NameLabel</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="G_introLabel">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>120</y>
+      <width>190</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>G_introLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="G_NoticeLabel">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>160</y>
+      <width>190</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>G_NoticeLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="G_menberTitleLabel">
+    <property name="geometry">
+     <rect>
+      <x>802</x>
+      <y>236</y>
+      <width>81</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>群成员</string>
+    </property>
+   </widget>
+   <widget class="QListView" name="G_listView">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>270</y>
+      <width>261</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+   </widget>
    <zorder>label_5</zorder>
+   <zorder>transPushButton</zorder>
+   <zorder>HeadTitleBg</zorder>
    <zorder>chatTextEdit</zorder>
    <zorder>sendPushButton</zorder>
    <zorder>label_2</zorder>
@@ -467,21 +638,26 @@
    <zorder>listView</zorder>
    <zorder>userHead</zorder>
    <zorder>label</zorder>
-   <zorder>label_4</zorder>
    <zorder>birthdayLabel</zorder>
-   <zorder>label_6</zorder>
    <zorder>EmailLabel</zorder>
-   <zorder>label_7</zorder>
    <zorder>PhoneLabel</zorder>
-   <zorder>label_8</zorder>
    <zorder>sexLabel</zorder>
    <zorder>label_9</zorder>
    <zorder>introLabel</zorder>
    <zorder>StateLabel</zorder>
    <zorder>FriendHead</zorder>
+   <zorder>navLabel</zorder>
+   <zorder>contactsPushButton</zorder>
+   <zorder>groupPushButton</zorder>
    <zorder>OriginalBg</zorder>
-   <zorder>transPushButton</zorder>
-   <zorder>searchPushButton</zorder>
+   <zorder>nickNameLabel</zorder>
+   <zorder>groupLabel</zorder>
+   <zorder>G_groupHead</zorder>
+   <zorder>G_groupNameLabel</zorder>
+   <zorder>G_introLabel</zorder>
+   <zorder>G_NoticeLabel</zorder>
+   <zorder>G_menberTitleLabel</zorder>
+   <zorder>G_listView</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
