@@ -6,7 +6,7 @@
 struct UserItemData
 {
     QString sHeadPic;
-    QString sUserName;
+    QString sUserName; //群成员名
     QString userSignalTrue;
 
     UserItemData() {

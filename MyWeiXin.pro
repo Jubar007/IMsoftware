@@ -9,12 +9,12 @@ QT       += network
 QT       += xml
 QT       += sql
 CONFIG += c++11
+CONFIG += console
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = MyWeiXin
 TEMPLATE = app
-
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -33,6 +33,7 @@ SOURCES += \
     logindialog.cpp \
     filesrvdlg.cpp \
     filecntdlg.cpp \
+    perfectpersonaldata.cpp \
     sqlite.cpp \
     useritemdelegate.cpp
 
@@ -42,6 +43,7 @@ HEADERS += \
     logindialog.h \
     filesrvdlg.h \
     filecntdlg.h \
+    perfectpersonaldata.h \
     sqlite.h \
     useritemdelegate.h
 
@@ -49,7 +51,8 @@ FORMS += \
         mainwindow.ui \
     logindialog.ui \
     filesrvdlg.ui \
-    filecntdlg.ui
+    filecntdlg.ui \
+    perfectpersonaldata.ui
 
 RESOURCES += \
     img.qrc \

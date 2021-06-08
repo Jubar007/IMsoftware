@@ -11,10 +11,11 @@
 
 class Sqlite
 {
+public:
     QSqlDatabase db;
     QString db_file_name;   //数据库文件名
     QSqlError error;
-    QSqlQuery *query;
+    QSqlQuery query;
     QSqlRecord rec;
 public:
     Sqlite(QString m_file_name);
