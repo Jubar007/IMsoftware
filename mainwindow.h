@@ -38,12 +38,14 @@ public:
     void recvFileName(QString name, QString hostip, QString rmtname, QString filename);
     QTextBrowser *userTextBrower=0;
     void p2p(QString);
-    QString groupChat(QString);
     void chatHistory(QString);
-    bool isContacts;//底部导航栏选中标识
+    bool isContacts = true;//底部导航栏选中标识
     void contactVisible(bool);
     void GroupVisible(bool);
     void getGroupMenbers(QString);
+    void getGroupMebs(QString);
+    bool isBelongGroup(QString);
+
 protected:
     //用户及用户的好友数据
     QList<QStringList> usrInfo;
@@ -78,15 +80,15 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QStandardItemModel *m_pModel;
-    QString myname = "";//本端用户名
-    QString clickname = "";//选中私聊用户名
+    QString myName = "";//本端用户名
+    QString clickName = "";//选中私聊用户名
     QString groupname = ""; //群组名
     QUdpSocket *myUdpSocket;  //UDP套接口指针
     qint16 myUdpPort;          //UDP端口号
     QDomDocument myDoc;
     QString myFileName;
     FileSrvDlg *myfsrv;
-
+    QStringList groupMebs;
     perfectPersonalData *perfectWindow;
 };
 

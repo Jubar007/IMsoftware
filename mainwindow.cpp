@@ -58,6 +58,7 @@ void MainWindow::initMainWindow()
     myfsrv = new FileSrvDlg(this);
     connect(myfsrv, SIGNAL(sendFileName(QString)), this, SLOT(getSfileName(QString)));
 }
+
 void MainWindow:: getFriendsList(QString usrid){
     QTextCodec::setCodecForLocale (QTextCodec:: codecForLocale ()) ;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
@@ -85,8 +86,9 @@ void MainWindow:: getFriendsList(QString usrid){
         }
      }
 }
+
 //联系人资料卡片可见设置
-void  MainWindow::contactVisible(bool canv){
+void MainWindow::contactVisible(bool canv){
     if(canv){
         QPixmap pix;
         QImage image3(":/img/InfoBg.jpg");
@@ -106,8 +108,9 @@ void  MainWindow::contactVisible(bool canv){
     ui->perfectInfoPushButton->setVisible(canv);
     ui->perfectInfoPushButton->setStyleSheet("color:white;");
 }
+
 //群聊资料卡片控件可见性设置
- void  MainWindow::GroupVisible(bool canv){
+void MainWindow::GroupVisible(bool canv){
      if(canv){
          QPixmap pix;
          QImage image3(":/img/InfoGroupBg.jpg");
@@ -122,6 +125,7 @@ void  MainWindow::contactVisible(bool canv){
      ui->G_menberTitleLabel->setVisible(canv);
      ui->G_listView->setVisible(canv);
  }
+
 //单击鼠标单击item信息
 void MainWindow::on_listView_clicked(const QModelIndex &index)
 {
@@ -166,7 +170,7 @@ void MainWindow::on_listView_clicked(const QModelIndex &index)
     ui->groupLabel->setText("分组: "+usrInfo[s][9]);
 
     }else{
-        //控件可见性设置
+        //控件可见性设置  群聊面板右侧属性
         contactVisible(false);
         GroupVisible(true);
         int s = index.row();
@@ -186,11 +190,13 @@ void MainWindow::on_listView_clicked(const QModelIndex &index)
              ui->G_NoticeLabel->setText("群公告: 暂无");
         getGroupMenbers(usrGroupInfo[s][0]);
     }
-    clickname = sUserName;
-    //弹出聊天控
-    p2p(clickname);  //点击的名字和自己的名字
-    //groupChat();
+
+    //选中的item属性，全局变量
+    clickName = sUserName;
+    //弹出聊天空间
+    p2p(clickName);
 }
+
 //群成员的显示
 void MainWindow::getGroupMenbers(QString groupName){
     QString sql = "select U_NickName,U_HeadPortrait,UG_ID,U_ID from User_Groups,User_GroupsToUser,User where UG_Name =\""+groupName+"\" and User_GroupsToUser.UG_UserID = User.U_ID and User_GroupsToUser.UG_GroupID = User_Groups.UG_ID";
@@ -224,11 +230,36 @@ void MainWindow::getGroupMenbers(QString groupName){
     UserItemDelegate* pUserItemDelegate = new UserItemDelegate;
     ui->G_listView->setItemDelegate(pUserItemDelegate);
     ui->G_listView->setModel(m_pModel);
+
+    //群聊信息出口 将函数分解为二： 1、获取群组信息  2、显示群组信息
 }
+void MainWindow::getGroupMebs(QString groupName)
+{
+    QString sql = "select U_NickName,U_HeadPortrait,UG_ID,U_ID from User_Groups,User_GroupsToUser,User where UG_Name =\""+groupName+"\" and User_GroupsToUser.UG_UserID = User.U_ID and User_GroupsToUser.UG_GroupID = User_Groups.UG_ID";
+    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
+    groupMenInfo.clear();
+    if(db->db_query(sql))
+    {
+        while(db->query.next()){
+            //用户及用户的好友数据更新
+            QStringList info;
+            info.append(db->query.value("U_NickName").toString());
+            info.append(db->query.value("U_HeadPortrait").toString());
+            info.append(db->query.value("UG_ID").toString());
+            info.append(db->query.value("U_ID").toString());
+            groupMenInfo.append(info);
+        }
+     }
+    for (int i=0; i<groupMenInfo.size(); ++i) {
+        groupMebs.append(groupMenInfo[i][0]);
+    }
+
+}
+
 //聊天记录里保存
 void MainWindow::chatHistory(QString clickname)
 {
-    QString historyPath ="./"+myname+"to"+ clickname+".txt";
+    QString historyPath ="./"+myName+"to"+ clickname+".txt";
     QFile fp(historyPath);
     //不存在就创建  存在就追加写
     if (!fp.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -257,7 +288,7 @@ void MainWindow::p2p(QString clickname)
     userTextBrower->setCurrentFont(QFont("Times New Roman", 14));
 
     //根据clickname 读取聊天记录文件
-    QString historyPath = "./"+myname+"to"+ clickname+".txt";
+    QString historyPath = "./"+myName+"to"+ clickname+".txt";
     QFile fps(historyPath);
     if (!fps.open(QIODevice::ReadWrite | QIODevice::Text))
      {
@@ -273,12 +304,14 @@ void MainWindow::p2p(QString clickname)
     userTextBrower->show();
 }
 
-//显示好友列表
+//前置登录信息传入mainwindow
 void MainWindow::sendUserData(QList<QStringList> data)
 {
+    //当前用户属性，全局变量
+    myName = data[0][1];
+
     usrInfo = data;
     //绑定个人资料控件
-
     QPixmap pix;
     QImage image(data[0][7]);//filename，图片的路径名字
     ui->userHead->setPixmap(pix.fromImage(image));// ui->pix就是label的控件名字
@@ -331,7 +364,7 @@ void MainWindow::sendChatMsg(ChatMsgType msgType, QString rmtName)
     QDataStream write(&qba, QIODevice::WriteOnly);
     QString locHostIp = getLocHostIp();
     QString locChatMsg = getLocChatMsg();
-    write << msgType << myname<<clickname;  //1、在发送的信息中，写入 消息类型+发送者用户名+好友名
+    write << msgType << myName<<clickName;  //1、在发送的信息中，写入 消息类型+发送者用户名+好友名
     switch (msgType)
     {
     case ChatMsg:
@@ -352,7 +385,7 @@ void MainWindow::sendChatMsg(ChatMsgType msgType, QString rmtName)
     myUdpSocket->writeDatagram(qba, qba.length(), QHostAddress::Broadcast, myUdpPort);  //完成消息处理后，发出广播
 }
 
-//接受UDP广播  TODO：设置一个标志，是否为点击的好友用户名
+//接受UDP广播
 void MainWindow::recvAndProcessChatMsg()
 {
     while (myUdpSocket->hasPendingDatagrams()) //判断是否读到消息
@@ -370,23 +403,27 @@ void MainWindow::recvAndProcessChatMsg()
         case ChatMsg: {
             read >> udpmyname >>udpclickname>> hostip >> chatmsg;
             //显示聊天内容
-            if((myname==udpmyname&&clickname==udpclickname)||
-                    (myname==udpclickname&&clickname==udpmyname))
+            if(isContacts)//消息为私聊
             {
-                userTextBrower->append("[" +udpmyname + "]" + curtime);
-                userTextBrower->append(chatmsg);
-                userTextBrower->update();
-                chatHistory(clickname);
-            }
-            else if(udpclickname ==groupname&&clickname == udpmyname)
-            {
-                if(groupChat(myname)==myname)
+               if((myName==udpmyname&&clickName==udpclickname)||
+                        (myName==udpclickname&&clickName==udpmyname))
                 {
                     userTextBrower->append("[" +udpmyname + "]" + curtime);
                     userTextBrower->append(chatmsg);
                     userTextBrower->update();
-                    chatHistory(clickname);
+                    chatHistory(clickName);
                 }
+            }
+            else
+            {
+                if(isBelongGroup(udpclickname)&&clickName==udpclickname)
+                {
+                    userTextBrower->append("[" +udpmyname + "]" + curtime);
+                    userTextBrower->append(chatmsg);
+                    userTextBrower->update();
+                    chatHistory(clickName);
+                }
+
             }
 
             break;
@@ -405,7 +442,7 @@ void MainWindow::recvAndProcessChatMsg()
             break;
         case RefFile:
             read >> udpmyname >> hostip >> rname;
-            if (myname == rname) myfsrv->cntRefused();
+            if (myName == rname) myfsrv->cntRefused();
             break;
         }
     }
@@ -431,13 +468,16 @@ QString MainWindow::getLocHostIp()
     return 0;
 }
 
-//建立群组
-QString MainWindow::groupChat(QString myname)
+//判断群成员是否属于群组
+bool MainWindow::isBelongGroup(QString udpclickname)
 {
-    QStringList groupList,result;
-    groupList<<"杨磊" << "吴汶憶" << "李群" ;
-    result = groupList.filter(myname,Qt::CaseInsensitive);
-    return result[0];
+    getGroupMebs(udpclickname);
+    bool ret = groupMebs.contains(myName);
+    if(ret)
+        return true; //属于该群组的成员
+    else
+        return  false;
+
 }
 
 //文件发送按钮
@@ -455,13 +495,13 @@ void MainWindow::on_transPushButton_clicked()
 void MainWindow::getSfileName(QString fname)
 {
     myFileName = fname;
-    sendChatMsg(SfileName, clickname);
+    sendChatMsg(SfileName, clickName);
 }
 
 //接收文件
 void MainWindow::recvFileName(QString name, QString hostip, QString rmtname, QString filename)
 {
-    if (myname == rmtname)
+    if (myName == rmtname)
     {
         int result = QMessageBox::information(this, tr("收到文件"), tr("好友 %1 给您发文件：\r\n%2，是否接收？").arg(name).arg(filename), QMessageBox::Yes, QMessageBox::No);
         if (result == QMessageBox::Yes)
@@ -479,7 +519,6 @@ void MainWindow::recvFileName(QString name, QString hostip, QString rmtname, QSt
         }
     }
 }
-
 
 //点击导航栏联系人按钮
 void MainWindow::on_contactsPushButton_clicked()
@@ -555,6 +594,7 @@ void MainWindow::on_groupPushButton_clicked()
     ui->listView->setItemDelegate(pUserItemDelegate);
     ui->listView->setModel(m_pModel);
 }
+
 //点击完善个人信息
 void MainWindow::on_perfectInfoPushButton_clicked()
 {
@@ -566,6 +606,7 @@ void MainWindow::on_perfectInfoPushButton_clicked()
     //窗口显示
     perfectWindow->show();
 }
+
 //接收从修改个人信息传输的值
 void MainWindow::receiveData(QStringList data)
 {
