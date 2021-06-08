@@ -22,8 +22,15 @@ public:
     void showChatWindow();
     void paintEvent(QPaintEvent *);
     QList<QStringList> usrsInfo;
+    bool queryphone(QString phone);
 
 private slots:
+    void on_selectLoginButton_clicked();
+
+    void on_selectSignButton_clicked();
+
+    void on_signPushButton_clicked();
+
 private:
     Ui::LoginDialog *ui;
     MainWindow *chatWindow;

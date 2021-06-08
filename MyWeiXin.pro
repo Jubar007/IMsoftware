@@ -32,6 +32,7 @@ SOURCES += \
     logindialog.cpp \
     filesrvdlg.cpp \
     filecntdlg.cpp \
+    perfectpersonaldata.cpp \
     sqlite.cpp \
     useritemdelegate.cpp
 
@@ -41,6 +42,7 @@ HEADERS += \
     logindialog.h \
     filesrvdlg.h \
     filecntdlg.h \
+    perfectpersonaldata.h \
     sqlite.h \
     useritemdelegate.h
 
@@ -48,7 +50,8 @@ FORMS += \
         mainwindow.ui \
     logindialog.ui \
     filesrvdlg.ui \
-    filecntdlg.ui
+    filecntdlg.ui \
+    perfectpersonaldata.ui
 
 RESOURCES += \
     img.qrc \

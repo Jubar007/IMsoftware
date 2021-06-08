@@ -11,6 +11,7 @@
 #include "qdom.h"
 #include <QStandardItemModel>
 #include <QTextBrowser>
+#include "perfectpersonaldata.h"
 
 class FileSrvDlg;
 
@@ -56,6 +57,7 @@ protected:
     QStringList userSignal;
 //    void closeEvent(QCloseEvent *event);//重写关闭窗口方法以便发送通知离开消息
 
+
 private slots:
     void on_listView_clicked(const QModelIndex &index);
     void on_sendPushButton_clicked();  //发送按钮单击事件
@@ -71,6 +73,8 @@ private slots:
 
     void on_groupPushButton_clicked();
 
+    void on_perfectInfoPushButton_clicked();
+    void receiveData(QStringList data);   //接收修改用户个人信息传递过来的数据的槽
 private:
     Ui::MainWindow *ui;
     QStandardItemModel *m_pModel;
@@ -82,6 +86,8 @@ private:
     QDomDocument myDoc;
     QString myFileName;
     FileSrvDlg *myfsrv;
+
+    perfectPersonalData *perfectWindow;
 };
 
 #endif // MAINWINDOW_H
