@@ -26,7 +26,9 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui->usrLineEdit->setVisible(true);
     ui->pwdLineEdit->setVisible(true);
     ui->loginPushButton->setVisible(true);
-
+    //快速登录
+    ui->usrLineEdit->setText("吴汶憶");
+    ui->pwdLineEdit->setText("111");
     ui->s_usrLineEdit->setVisible(false);
     ui->s_EmailLineEdit->setVisible(false);
     ui->s_phoneLineEdit->setVisible(false);
@@ -41,9 +43,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui->s_EmailLineEdit->setPlaceholderText("输入邮箱...");
     ui->s_phoneLineEdit->setPlaceholderText("输入联系方式...");
     ui->s_pwdLineEdit->setPlaceholderText("设置密码...");
-    //快速登录
-    //ui->usrLineEdit->setText("吴汶憶");
-    //ui->pwdLineEdit->setText("111");
+
 }
 //设置背景图片
 void LoginDialog::paintEvent(QPaintEvent *)
@@ -184,7 +184,7 @@ void LoginDialog::on_signPushButton_clicked()
         return;
     }
     QString sql = "INSERT INTO User VALUES("+phone+",'"+usrname+"','"+pwd+"','无',3,null,'"+phone+"','"+email+"',':/img/boy.png',0)";
-    qDebug()<<sql;
+    //qDebug()<<sql;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     bool success = db->db_query(sql);
     if(!success){

@@ -13,6 +13,7 @@
 #include <QList>
 #include <QStringList>
 #include "sqlite.h"
+#include "perfectpersonaldata.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -39,6 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //默认选中联系人
     isContacts = true;
     GroupVisible(false);//群聊控件不可见
+
+    ui->perfectInfoPushButton->setStyleSheet("color:white;");
 }
 MainWindow::~MainWindow()
 {
@@ -100,6 +103,8 @@ void  MainWindow::contactVisible(bool canv){
     ui->introLabel->setVisible(canv);
     ui->nickNameLabel->setVisible(canv);
     ui->groupLabel->setVisible(canv);
+    ui->perfectInfoPushButton->setVisible(canv);
+    ui->perfectInfoPushButton->setStyleSheet("color:white;");
 }
 //群聊资料卡片控件可见性设置
  void  MainWindow::GroupVisible(bool canv){
@@ -120,6 +125,9 @@ void  MainWindow::contactVisible(bool canv){
 //单击鼠标单击item信息
 void MainWindow::on_listView_clicked(const QModelIndex &index)
 {
+    ui->nickNameLabel->setVisible(true);
+    ui->groupLabel->setVisible(true);
+    ui->perfectInfoPushButton->setVisible(false);
     ui->OriginalBg->setVisible(false);//聊天背景不可见
     //获取选中的用户信息
     QVariant var = index.data(Qt::UserRole+1);
@@ -287,6 +295,8 @@ void MainWindow::sendUserData(QList<QStringList> data)
     ui->EmailLabel->setText("邮箱: "+usrInfo[0][6]);
     ui->PhoneLabel->setText("联系方式: "+usrInfo[0][5]);
     ui->introLabel->setText(usrInfo[0][2]);
+    ui->nickNameLabel->setText("备注: 无");
+    ui->groupLabel->setText("分组: 无");
     //获取当前用户的好友列表-->更新用户列表数据
     getFriendsList(data[0][0]);
     //循环插入数据
@@ -544,4 +554,35 @@ void MainWindow::on_groupPushButton_clicked()
     UserItemDelegate* pUserItemDelegate = new UserItemDelegate;
     ui->listView->setItemDelegate(pUserItemDelegate);
     ui->listView->setModel(m_pModel);
+}
+//点击完善个人信息
+void MainWindow::on_perfectInfoPushButton_clicked()
+{
+    perfectWindow = new perfectPersonalData();
+    connect(perfectWindow, SIGNAL(sendData(QStringList)), this, SLOT(receiveData(QStringList)));
+    perfectWindow->setWindowTitle("完善个人信息");
+    //传输用户数据
+    perfectWindow->getUersData(usrInfo[0]);
+    //窗口显示
+    perfectWindow->show();
+}
+//接收从修改个人信息传输的值
+void MainWindow::receiveData(QStringList data)
+{
+    QPixmap pix;
+    QImage image(data[2]);//filename，图片的路径名字
+    ui->userHead->setPixmap(pix.fromImage(image));// ui->pix就是label的控件名字
+    ui->userHead->setScaledContents(true);
+    ui->userHead->show();
+    ui->label->setText(data[0]);
+    if(data[1] == "1")
+        ui->sexLabel->setText("性别: 男");
+    else if(data[1] == "2")
+        ui->sexLabel->setText("性别: 女");
+    else
+        ui->sexLabel->setText("性别: 未知");
+    ui->birthdayLabel->setText("生日: "+data[3].mid(0, 10));
+    ui->EmailLabel->setText("邮箱: "+data[4]);
+    ui->PhoneLabel->setText("联系方式: "+data[5]);
+    ui->introLabel->setText(data[6]);
 }
