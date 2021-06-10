@@ -33,6 +33,8 @@ private slots:
 
     void on_cntClosePushButton_clicked();
 
+    void TCPCntError(QAbstractSocket::SocketError);
+
 private:
     Ui::FileCntDlg *ui;
     QTcpSocket *myCntSocket;

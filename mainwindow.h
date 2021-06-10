@@ -66,16 +66,22 @@ private slots:
 
     void recvAndProcessChatMsg();//接收并处理UDP数据报
 
-//    void on_searchPushButton_clicked();  //搜索在线用户
-
-   void getSfileName(QString);
+    void getSfileName(QString);
 
     void on_transPushButton_clicked();
+
     void on_contactsPushButton_clicked();
+
+    void on_historySave_clicked();
 
     void on_groupPushButton_clicked();
 
     void on_perfectInfoPushButton_clicked();
+
+    void on_clearHistory_clicked();
+
+    bool saveFile(const QString& fileName);
+
     void receiveData(QStringList data);   //接收修改用户个人信息传递过来的数据的槽
 private:
     Ui::MainWindow *ui;

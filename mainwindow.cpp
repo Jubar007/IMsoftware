@@ -21,6 +21,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);    
     initMainWindow();
+    QPixmap icon1(tr(":/img/fileIo.png")),
+            icon2(tr(":/img/download.png")),
+            icon3(tr(":/img/clear.png"));
+    ui->transPushButton->setIcon(icon1);
+    ui->historySave->setIcon(icon2);
+    ui->clearHistory->setIcon(icon3);
+    ui->transPushButton->setStyleSheet("background-color:rgba(0,0,0,0)");
+    ui->historySave->setStyleSheet("background-color:rgba(0,0,0,0)");
+    ui->clearHistory->setStyleSheet("background-color:rgba(0,0,0,0)");
     QPixmap pix;
     //初始聊天界面被一张图片盖住
     QImage image(":/img/ChatBG.jpg");
@@ -42,6 +51,11 @@ MainWindow::MainWindow(QWidget *parent) :
     GroupVisible(false);//群聊控件不可见
 
     ui->perfectInfoPushButton->setStyleSheet("color:white;");
+
+
+    //初始化TCP服务器
+//    myfsrv = new FileSrvDlg(this);
+//    connect(myfsrv, SIGNAL(sendFileName(QString)), this, SLOT(getSfileName(QString)));
 }
 MainWindow::~MainWindow()
 {
@@ -51,12 +65,11 @@ MainWindow::~MainWindow()
 //TODO: 窗口初始化
 void MainWindow::initMainWindow()
 {
+    //初始化UDP套接件
     myUdpSocket = new QUdpSocket(this);
     myUdpPort = 23232;
     myUdpSocket->bind(myUdpPort, QUdpSocket::ShareAddress|QUdpSocket::ReuseAddressHint);
     connect(myUdpSocket, SIGNAL(readyRead()), this, SLOT(recvAndProcessChatMsg()));
-    myfsrv = new FileSrvDlg(this);
-    connect(myfsrv, SIGNAL(sendFileName(QString)), this, SLOT(getSfileName(QString)));
 }
 
 void MainWindow:: getFriendsList(QString usrid){
@@ -256,7 +269,51 @@ void MainWindow::getGroupMebs(QString groupName)
 
 }
 
-//聊天记录里保存
+//聊天记录保存按钮
+void MainWindow::on_historySave_clicked()
+{
+    if (userTextBrower->document()->isEmpty()) {
+        QMessageBox::warning(0, tr("警告"), tr("聊天记录为空，无法保存！"), QMessageBox::Ok);
+    } else {
+        QString fileName = QFileDialog::getSaveFileName(this,
+                                                        tr("保存聊天记录"), tr("聊天记录"), tr("文本(*.txt);;All File(*.*)"));
+        if(!fileName.isEmpty())
+            saveFile(fileName);
+    }
+}
+
+//聊天记录文件
+bool MainWindow::saveFile(const QString &fileName)
+{
+
+    QFile file(fileName);
+    if (!file.open(QFile::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, tr("保存文件"),
+                             tr("无法保存文件 %1:\n %2").arg(fileName)
+                             .arg(file.errorString()));
+        return false;
+    }
+    QTextStream out(&file);
+    out << userTextBrower->toPlainText();
+
+    return true;
+}
+
+//清除聊天记录
+void MainWindow::on_clearHistory_clicked()
+{
+    userTextBrower->clear();
+    QString historyPath ="./"+myName+"to"+ clickName+".txt";
+    QFile fp(historyPath);
+    if (!fp.open(QIODevice::WriteOnly | QIODevice::Text | QFile::Truncate))
+    {
+        qDebug()<<"文件清空失败";
+    }
+    fp.close();
+}
+
+
+//聊天记录内部存档
 void MainWindow::chatHistory(QString clickname)
 {
     QString historyPath ="./"+myName+"to"+ clickname+".txt";
@@ -264,17 +321,14 @@ void MainWindow::chatHistory(QString clickname)
     //不存在就创建  存在就追加写
     if (!fp.open(QIODevice::WriteOnly | QIODevice::Text))
      {
-       qDebug()<<"文件创建失败";
+       qDebug()<<"消息存档创建失败";
        return;
      };
     QTextStream in(&fp);
-    //判断Textbrower是否为空，
-    //写入text上的数据
     if(userTextBrower)
     {
         in <<userTextBrower->toPlainText().toUtf8();
     }
-
     fp.close();
 }
 
@@ -349,11 +403,11 @@ void MainWindow::sendUserData(QList<QStringList> data)
     ui->listView->setModel(m_pModel);
 }
 
-//点击发送按钮
+//点击文本发送按钮
 void MainWindow::on_sendPushButton_clicked()
 {
-    //发出广播
-    sendChatMsg(ChatMsg);
+    //发出广播 消息类型 发送给谁
+    sendChatMsg(ChatMsg,clickName);
 }
 
 //发UDP广播
@@ -364,7 +418,10 @@ void MainWindow::sendChatMsg(ChatMsgType msgType, QString rmtName)
     QDataStream write(&qba, QIODevice::WriteOnly);
     QString locHostIp = getLocHostIp();
     QString locChatMsg = getLocChatMsg();
-    write << msgType << myName<<clickName;  //1、在发送的信息中，写入 消息类型+发送者用户名+好友名
+    write << msgType << myName<<rmtName;  //1、在发送的信息中，写入 消息类型+发送者用户名+好友名
+    qDebug()<<"UDP广播发出"<<"文件类型："<<msgType
+           <<"发送者"<<myName
+           <<"接受者"<<rmtName;
     switch (msgType)
     {
     case ChatMsg:
@@ -376,7 +433,8 @@ void MainWindow::sendChatMsg(ChatMsgType msgType, QString rmtName)
     case OffLine:
         break;
     case SfileName:
-        write << locHostIp << rmtName << myFileName;//2、TODO：在发送的信息中，写入本机ip+接收端用户名+文件名
+        //2、写入发送端的Ip、文件名
+        write << locHostIp << myFileName;
         break;
     case RefFile:
         write << locHostIp << rmtName;
@@ -390,6 +448,7 @@ void MainWindow::recvAndProcessChatMsg()
 {
     while (myUdpSocket->hasPendingDatagrams()) //判断是否读到消息
     {
+        qDebug()<<"接收到UDP广播";
         QByteArray qba;
         qba.resize(myUdpSocket->pendingDatagramSize());
         myUdpSocket->readDatagram(qba.data(), qba.size());
@@ -401,6 +460,7 @@ void MainWindow::recvAndProcessChatMsg()
         switch (msgType)
         {
         case ChatMsg: {
+            qDebug()<<"UDP内容为消息";
             read >> udpmyname >>udpclickname>> hostip >> chatmsg;
             //显示聊天内容
             if(isContacts)//消息为私聊
@@ -414,7 +474,7 @@ void MainWindow::recvAndProcessChatMsg()
                     chatHistory(clickName);
                 }
             }
-            else
+            else//消息为群聊
             {
                 if(isBelongGroup(udpclickname)&&clickName==udpclickname)
                 {
@@ -437,11 +497,17 @@ void MainWindow::recvAndProcessChatMsg()
 //            offLine(name, curtime);
 //            break;
         case SfileName:
-            read >> udpmyname >> hostip >> rname >> fname;
-            recvFileName(udpmyname, hostip, rname, fname);
+            //发送者用户名+好友名、发送端的Ip、文件名
+            read >> udpmyname >> rname >>hostip >>fname;
+            qDebug()<<"UDP内容为文件"
+                   <<"发送者"<<udpmyname
+                    <<"接收者"<<rname
+                    <<"当前用户"<<myName;
+            if (myName == rname)
+            {recvFileName(udpmyname, hostip, rname, fname);}
             break;
         case RefFile:
-            read >> udpmyname >> hostip >> rname;
+            read >> udpmyname >> rname >>hostip >>fname;
             if (myName == rname) myfsrv->cntRefused();
             break;
         }
@@ -480,25 +546,27 @@ bool MainWindow::isBelongGroup(QString udpclickname)
 
 }
 
-//文件发送按钮
+//文件传输按钮
 void MainWindow::on_transPushButton_clicked()
 {
-//    if (ui->userListTableWidget->selectedItems().isEmpty())
-//    {
-//        QMessageBox::warning(0, tr("选择好友"), tr("请先选择文件接收方！"), QMessageBox::Ok);
-//        return;
-//    }
+    //创建TCP服务器，作为发送端
+
+    myfsrv = new FileSrvDlg(this);
+    connect(myfsrv, SIGNAL(sendFileName(QString)), this, SLOT(getSfileName(QString)));
     myfsrv->show();
+//    //每次点击必须初始化
+//    myfsrv->initServer();
+
 }
 
-//获取文件名 并发送udp
+//获取文件名 全局变量myFileName 并发送udp
 void MainWindow::getSfileName(QString fname)
 {
     myFileName = fname;
     sendChatMsg(SfileName, clickName);
 }
 
-//接收文件
+//判断接收文件
 void MainWindow::recvFileName(QString name, QString hostip, QString rmtname, QString filename)
 {
     if (myName == rmtname)
@@ -506,16 +574,19 @@ void MainWindow::recvFileName(QString name, QString hostip, QString rmtname, QSt
         int result = QMessageBox::information(this, tr("收到文件"), tr("好友 %1 给您发文件：\r\n%2，是否接收？").arg(name).arg(filename), QMessageBox::Yes, QMessageBox::No);
         if (result == QMessageBox::Yes)
         {
+            //传入UDP文件名，设置文件路径
             QString fname = QFileDialog::getSaveFileName(0, tr("保 存"), filename);
             if (!fname.isEmpty())
             {
                 FileCntDlg *fcnt = new FileCntDlg(this);
+                //新建保存文件流
                 fcnt->getLocPath(fname);
+                //传入UDP接收到的IP地址，并建立连接
                 fcnt->getSrvAddr(QHostAddress(hostip));
                 fcnt->show();
             }
         } else {
-            sendChatMsg(RefFile, name);
+            sendChatMsg(RefFile, name); //TODO:拒绝处理文件
         }
     }
 }
@@ -627,3 +698,4 @@ void MainWindow::receiveData(QStringList data)
     ui->PhoneLabel->setText("联系方式: "+data[5]);
     ui->introLabel->setText(data[6]);
 }
+

@@ -20,25 +20,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="sendPushButton">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>372</y>
-      <width>85</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>黑体</family>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>发 送(S)</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
@@ -78,9 +59,6 @@
     </property>
     <property name="text">
      <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../微信/img/title.jpg</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="FriendNameLabel">
@@ -141,9 +119,6 @@
     </property>
     <property name="text">
      <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../微信/img/tool.jpg</pixmap>
     </property>
    </widget>
    <widget class="QTextEdit" name="chatTextEdit">
@@ -379,38 +354,13 @@
     <property name="geometry">
      <rect>
       <x>250</x>
-      <y>0</y>
+      <y>20</y>
       <width>491</width>
       <height>500</height>
      </rect>
     </property>
     <property name="text">
      <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="transPushButton">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>372</y>
-      <width>60</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>黑体</family>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>文件</string>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>16</width>
-      <height>16</height>
-     </size>
     </property>
    </widget>
    <widget class="QLabel" name="navLabel">
@@ -650,11 +600,109 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>363</y>
+      <width>471</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="historySave">
+       <property name="font">
+        <font>
+         <family>黑体</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clearHistory">
+       <property name="font">
+        <font>
+         <family>黑体</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="transPushButton">
+       <property name="font">
+        <font>
+         <family>黑体</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="sendPushButton">
+       <property name="font">
+        <font>
+         <family>黑体</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>发 送(S)</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+    <zorder>historySave</zorder>
+    <zorder>clearHistory</zorder>
+    <zorder>transPushButton</zorder>
+    <zorder>sendPushButton</zorder>
+    <zorder>horizontalSpacer</zorder>
+   </widget>
    <zorder>label_5</zorder>
-   <zorder>transPushButton</zorder>
    <zorder>HeadTitleBg</zorder>
    <zorder>chatTextEdit</zorder>
-   <zorder>sendPushButton</zorder>
    <zorder>label_2</zorder>
    <zorder>label_3</zorder>
    <zorder>FriendNameLabel</zorder>
@@ -683,6 +731,7 @@
    <zorder>G_menberTitleLabel</zorder>
    <zorder>G_listView</zorder>
    <zorder>perfectInfoPushButton</zorder>
+   <zorder>widget</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

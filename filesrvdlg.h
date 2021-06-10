@@ -25,6 +25,7 @@ public:
     explicit FileSrvDlg(QWidget *parent = 0);
     ~FileSrvDlg();
     void cntRefused();
+    void initServer();
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -39,6 +40,8 @@ private slots:
     void on_sendFilePushButton_clicked();
 
     void on_srvClosePushButton_clicked();
+
+    void TCPCntError(QAbstractSocket::SocketError);
 
 private:
     Ui::FileSrvDlg *ui;
@@ -56,8 +59,10 @@ private:
     qint64 myPayloadSize;
     QByteArray myOutputBlock;
     QTime mytime;
+    bool flag = false;
 signals:
     void sendFileName(QString name);
+    void TCPCntflag();
 };
 
 #endif // FILESRVDLG_H
