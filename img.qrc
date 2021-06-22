@@ -19,5 +19,12 @@
         <file>img/loginBg.jpg</file>
         <file>img/signInBg.jpg</file>
         <file>img/perfectData.jpg</file>
+        <file>img/add.png</file>
+        <file>img/bg.png</file>
+        <file>img/notice.png</file>
+        <file>img/boy_a.png</file>
+        <file>img/girl_a.png</file>
+        <file>img/group3_a.png</file>
+        <file>img/notice_a.png</file>
     </qresource>
 </RCC>

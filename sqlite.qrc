@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>sqlite/simpleChat.db</file>
-    </qresource>
-</RCC>

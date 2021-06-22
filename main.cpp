@@ -9,6 +9,5 @@ int main(int argc, char *argv[])
     logindlg.show();
     //MainWindow w;
     //w.show();
-
     return a.exec();
 }

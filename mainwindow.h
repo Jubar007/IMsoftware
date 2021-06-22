@@ -12,7 +12,7 @@
 #include <QStandardItemModel>
 #include <QTextBrowser>
 #include "perfectpersonaldata.h"
-
+#include "addnews.h"
 class FileSrvDlg;
 
 namespace Ui {
@@ -38,12 +38,14 @@ public:
     void recvFileName(QString name, QString hostip, QString rmtname, QString filename);
     QTextBrowser *userTextBrower=0;
     void p2p(QString);
-    QString groupChat(QString);
     void chatHistory(QString);
-    bool isContacts;//底部导航栏选中标识
+    bool isContacts = true;//底部导航栏选中标识
     void contactVisible(bool);
     void GroupVisible(bool);
     void getGroupMenbers(QString);
+    void getGroupMebs(QString);
+    bool isBelongGroup(QString);
+
 protected:
     //用户及用户的好友数据
     QList<QStringList> usrInfo;
@@ -64,30 +66,44 @@ private slots:
 
     void recvAndProcessChatMsg();//接收并处理UDP数据报
 
-//    void on_searchPushButton_clicked();  //搜索在线用户
-
-   void getSfileName(QString);
+    void getSfileName(QString);
 
     void on_transPushButton_clicked();
+
     void on_contactsPushButton_clicked();
+
+    void on_historySave_clicked();
 
     void on_groupPushButton_clicked();
 
     void on_perfectInfoPushButton_clicked();
+
+    void on_clearHistory_clicked();
+
+   bool saveFile(const QString& fileName);
+
     void receiveData(QStringList data);   //接收修改用户个人信息传递过来的数据的槽
+
+    void on_addPushButton_clicked();
+
+    void changeListViewPix(QString,QString,bool);//更改ListView中头像的有无消息的显示（头像上是否有红点显示）
+
+    void changeNoticePix(bool);//右上角铃铛有无红点图片改变
+
 private:
     Ui::MainWindow *ui;
     QStandardItemModel *m_pModel;
-    QString myname = "";//本端用户名
-    QString clickname = "";//选中私聊用户名
+    QString myName = "";//本端用户名
+    QString clickName = "";//选中私聊用户名
     QString groupname = ""; //群组名
     QUdpSocket *myUdpSocket;  //UDP套接口指针
     qint16 myUdpPort;          //UDP端口号
     QDomDocument myDoc;
     QString myFileName;
     FileSrvDlg *myfsrv;
-
+    QStringList groupMebs;
     perfectPersonalData *perfectWindow;
+    addNews *addWindow;
 };
 
 #endif // MAINWINDOW_H
