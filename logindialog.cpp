@@ -22,7 +22,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     //登录按钮按下调用showChatWindow函数
     connect(ui->loginPushButton, &QPushButton::clicked, this, &LoginDialog::showChatWindow);
     //首次连接执行sql会失败，放在初始化处
-    Sqlite *db = new Sqlite("/sqlite/simpleChat.db");
+    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     db->db_query("select U_ID,U_NickName,U_PassWord from User");
     ui->usrLineEdit->setVisible(true);
     ui->pwdLineEdit->setVisible(true);

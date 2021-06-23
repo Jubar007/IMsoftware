@@ -88,6 +88,7 @@ void MainWindow:: getFriendsList(QString usrid){
     QTextCodec::setCodecForLocale (QTextCodec:: codecForLocale ()) ;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     QString sql ="select U_ID,U_HeadPortrait,F_Name,U_NickName,U_SignaTure,U_Sex,U_Birthday,U_Telephone,U_Email,US_Name,FG_Name,isFriend from Friends,User,UserState,FriendGroups where Friends.F_UserID ="+usrid+" and Friends.F_FirendID = User.U_ID and User.U_UserStateID = UserState.US_ID and FriendGroups.FG_UserID = "+usrid;
+     qDebug()<<sql;
     if(db->db_query(sql))
     {
         while(db->query.next()){
@@ -96,7 +97,7 @@ void MainWindow:: getFriendsList(QString usrid){
             headpics.append(db->query.value("U_HeadPortrait").toString());
             names.append(db->query.value("F_Name").toString());
             userSignal.append(db->query.value("U_SignaTure").toString());
-            qDebug()<<db->query.value("isFriend").toString();//转换成string类型显示出的为“1”
+            //qDebug()<<db->query.value("isFriend").toString();//转换成string类型显示出的为“1”
             //用户及用户的好友数据更新
             QStringList info;
             info.append(db->query.value("U_ID").toString());//0
@@ -826,7 +827,27 @@ void MainWindow::changeNoticePix(bool RedPoint){
                                "border:0px solid gray;}"); //边界宽度，样式，颜色
     }
 }
-
+//同意添加好友跟新或写入数据库
+/*参数说明：
+int uid, 当前用户的ID 对应usrInfo[0][0](也是QString类型)--->QList<QStringList>
+int friendId, 好友的ID（别人的）
+QString nickname：当前用户给好友的备注
+*/
+void MainWindow::agreeFriend(QString uid,QString friendId,QString nickname){
+    QString updateSql = "update Friends set isFriend=true where F_FirendID = "+friendId+" and F_UserID = "+uid;
+    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
+    bool successUpdate = db->db_query(updateSql);
+    if(!successUpdate){
+        qDebug()<<"更新数据库失败！";
+        return;
+    }
+    QString insertSql ="insert into Friends values("+friendId+","+uid+",'"+nickname+"',"+uid+",true,null)";
+    bool successInsert = db->db_query(insertSql);
+    if(!successInsert){
+        qDebug()<<"插入数据库失败！";
+        return;
+    }
+}
 void MainWindow::on_addPushButton_clicked()
 {
     addWindow = new addNews();
