@@ -1,12 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>img/search.jpg</file>
-        <file>img/title.jpg</file>
-        <file>img/tool.jpg</file>
-        <file>img/wei.jpg</file>
         <file>img/bgLogin.jpg</file>
         <file>img/ChatBG.jpg</file>
-        <file>img/file.png</file>
         <file>img/navBottom.jpg</file>
         <file>img/navBottom_UG.jpg</file>
         <file>img/group1.png</file>
@@ -26,5 +21,8 @@
         <file>img/girl_a.png</file>
         <file>img/group3_a.png</file>
         <file>img/notice_a.png</file>
+        <file>img/fileIo.png</file>
+        <file>img/download.png</file>
+        <file>img/clear.png</file>
     </qresource>
 </RCC>

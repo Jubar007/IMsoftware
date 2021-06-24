@@ -9,6 +9,7 @@ QT       += network
 QT       += xml
 QT       += sql
 CONFIG += c++11
+CONFIG += console
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -57,4 +58,5 @@ FORMS += \
     perfectpersonaldata.ui
 
 RESOURCES += \
-    img.qrc
+    img.qrc \
+    res.qrc

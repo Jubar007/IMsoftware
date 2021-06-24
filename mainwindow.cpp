@@ -390,7 +390,6 @@ void MainWindow::sendUserData(QList<QStringList> data)
 
     usrInfo = data;
     //绑定个人资料控件
-
     QPixmap pix;
     QImage image(data[0][7]);//filename，图片的路径名字
     ui->userHead->setPixmap(pix.fromImage(image));// ui->pix就是label的控件名字

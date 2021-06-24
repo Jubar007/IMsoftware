@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>userlog.xml</file>
-    </qresource>
-</RCC>
