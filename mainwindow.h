@@ -12,7 +12,7 @@
 #include <QStandardItemModel>
 #include <QTextBrowser>
 #include "perfectpersonaldata.h"
-#include "addnews.h"
+
 class FileSrvDlg;
 
 namespace Ui {
@@ -80,18 +80,9 @@ private slots:
 
     void on_clearHistory_clicked();
 
-   bool saveFile(const QString& fileName);
+    bool saveFile(const QString& fileName);
 
     void receiveData(QStringList data);   //接收修改用户个人信息传递过来的数据的槽
-
-    void on_addPushButton_clicked();
-
-    void changeListViewPix(QString,QString,bool);//更改ListView中头像的有无消息的显示（头像上是否有红点显示）
-
-    void changeNoticePix(bool);//右上角铃铛有无红点图片改变
-
-    void agreeFriend(QString uid,QString friendId,QString nickname);
-
 private:
     Ui::MainWindow *ui;
     QStandardItemModel *m_pModel;
@@ -105,7 +96,6 @@ private:
     FileSrvDlg *myfsrv;
     QStringList groupMebs;
     perfectPersonalData *perfectWindow;
-    addNews *addWindow;
 };
 
 #endif // MAINWINDOW_H
