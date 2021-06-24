@@ -28,6 +28,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    addnews.cpp \
         main.cpp \
         mainwindow.cpp \
     logindialog.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
 
 HEADERS += \
     UserListData.h \
+    addnews.h \
         mainwindow.h \
     logindialog.h \
     filesrvdlg.h \
@@ -48,6 +50,7 @@ HEADERS += \
     useritemdelegate.h
 
 FORMS += \
+    addnews.ui \
         mainwindow.ui \
     logindialog.ui \
     filesrvdlg.ui \
