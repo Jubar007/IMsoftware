@@ -56,5 +56,4 @@ FORMS += \
 
 RESOURCES += \
     img.qrc \
-    xml.qrc \
     res.qrc
