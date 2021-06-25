@@ -13,6 +13,10 @@
 #include <QTextBrowser>
 #include "perfectpersonaldata.h"
 #include "addnews.h"
+#include "agreefriend.h"
+#include "changeremark.h"
+#include "friendgroup.h"
+
 class FileSrvDlg;
 
 namespace Ui {
@@ -25,11 +29,12 @@ class MainWindow : public QMainWindow
 
 public:
     QString usrid;//当前用户的id
+
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();    
     void initMainWindow();
     void sendUserData(QList<QStringList> data); //在子窗口创建public函数用来获取传递的数据
-    void getFriendsList(QString usrid); //好友列表数据获取
+
     void onLine(QString name, QString time);//处理新用户加入
     void offLine(QString name, QString time);//处理用户离开
     void sendChatMsg(ChatMsgType msgType, QString rmtName = "");//广播UDP消息
@@ -45,18 +50,25 @@ public:
     void getGroupMenbers(QString);
     void getGroupMebs(QString);
     bool isBelongGroup(QString);
-
+   void getFriendsList(QString usrid); //好友列表数据获取
+    bool haveNewFriend(QString);
 protected:
+    //用户数据
+    QList<QStringList> myInfo;
     //用户及用户的好友数据
     QList<QStringList> usrInfo;
     //用户加入群的信息
     QList<QStringList> usrGroupInfo;
     //群成员信息
     QList<QStringList> groupMenInfo;
+    //新好友信息
+    QList<QStringList> newFriendInfo;
     //用户列表数据
     QStringList headpics;
     QStringList names;
     QStringList userSignal;
+
+    int s;//listview用选中的行数（从1开始）
 //    void closeEvent(QCloseEvent *event);//重写关闭窗口方法以便发送通知离开消息
 
 
@@ -90,7 +102,20 @@ private slots:
 
     void changeNoticePix(bool);//右上角铃铛有无红点图片改变
 
-    void agreeFriend(QString uid,QString friendId,QString nickname);
+    void agreeFriends(QString uid,QString friendId,QString nickname);
+
+    void on_noticePushButton_clicked();
+
+    void updateFriendsList(QString);
+
+
+    void on_nickCPushButton_clicked();
+
+    void changeRemarks(QString);
+
+    void on_groupCPushButton_clicked();
+
+    void changeGroup(QString);
 
 private:
     Ui::MainWindow *ui;
@@ -106,6 +131,9 @@ private:
     QStringList groupMebs;
     perfectPersonalData *perfectWindow;
     addNews *addWindow;
+    agreeFriend *agreeFriendWindow;
+    changeRemark *changeRemarkWindow;
+    friendGroup *friendGroupWindow;
 };
 
 #endif // MAINWINDOW_H

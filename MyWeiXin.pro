@@ -9,7 +9,6 @@ QT       += network
 QT       += xml
 QT       += sql
 CONFIG += c++11
-CONFIG += console
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,6 +28,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     addnews.cpp \
+    agreefriend.cpp \
+    changeremark.cpp \
+    friendgroup.cpp \
         main.cpp \
         mainwindow.cpp \
     logindialog.cpp \
@@ -41,6 +43,9 @@ SOURCES += \
 HEADERS += \
     UserListData.h \
     addnews.h \
+    agreefriend.h \
+    changeremark.h \
+    friendgroup.h \
         mainwindow.h \
     logindialog.h \
     filesrvdlg.h \
@@ -51,6 +56,9 @@ HEADERS += \
 
 FORMS += \
     addnews.ui \
+    agreefriend.ui \
+    changeremark.ui \
+    friendgroup.ui \
         mainwindow.ui \
     logindialog.ui \
     filesrvdlg.ui \
@@ -58,5 +66,4 @@ FORMS += \
     perfectpersonaldata.ui
 
 RESOURCES += \
-    img.qrc \
-    res.qrc
+    img.qrc
