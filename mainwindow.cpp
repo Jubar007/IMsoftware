@@ -270,7 +270,7 @@ void MainWindow::on_listView_clicked(const QModelIndex &index)
     }
 
     //选中的item属性，全局变量
-    clickName = sUserName;//usrInfo[s][1]
+    clickName = usrInfo[s][1];
     //弹出聊天空间
     p2p(clickName);
 }
@@ -635,6 +635,8 @@ void MainWindow::recvAndProcessChatMsg()
             {
                 //申请者自己的数据库管理
                 agreeFriends(usrInfo[0][0],revPeerInfo[0],revPeerInfo[1]);
+                updateFriendsList(usrInfo[0][0]);
+
             }
             break;
         }
@@ -915,11 +917,8 @@ int uid, 当前用户的ID 对应usrInfo[0][0](也是QString类型)--->QList<QSt
 int friendId, 好友的ID（别人的）
 QString nickname：当前用户给好友的备注
 */
-<<<<<<< HEAD
-void MainWindow::agreeFriends( QString uid,QString friendId,QString nickname){
-=======
 void MainWindow::agreeFriends(QString uid,QString friendId,QString nickname){
->>>>>>> pr/15
+
     QString updateSql = "update Friends set isFriend=true where F_FirendID = "+friendId+" and F_UserID = "+uid;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     bool successUpdate = db->db_query(updateSql);
@@ -946,7 +945,6 @@ void MainWindow::on_addPushButton_clicked()
     addWindow->show();
 }
 
-<<<<<<< HEAD
 void MainWindow::sendFriendAdd(QString rmtname)
 {
     sendChatMsg(FriendAdd,rmtname,usrInfo[0]);
@@ -964,13 +962,14 @@ void MainWindow::recvFriendAdd(QString udpmyname,QString udpclickname,QStringLis
 
              //将申请者加入数据库
              agreeFriends(usrInfo[0][0],peerBuffIn[0],peerBuffIn[1]);
+             updateFriendsList(usrInfo[0][0]);
 
         } else
         {
             sendChatMsg(RefFriend, udpmyname);
         }
     }
-=======
+}
 void MainWindow::on_noticePushButton_clicked()
 {
     agreeFriendWindow = new agreeFriend();
@@ -1053,5 +1052,4 @@ void MainWindow::on_groupCPushButton_clicked()
 }
 void MainWindow::changeGroup(QString g){
     ui->groupLabel->setText("分组："+ g);
->>>>>>> pr/15
 }

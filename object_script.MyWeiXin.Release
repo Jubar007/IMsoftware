@@ -1,5 +1,8 @@
 INPUT(
 ./release\addnews.o
+./release\agreefriend.o
+./release\changeremark.o
+./release\friendgroup.o
 ./release\main.o
 ./release\mainwindow.o
 ./release\logindialog.o
@@ -9,8 +12,10 @@ INPUT(
 ./release\sqlite.o
 ./release\useritemdelegate.o
 ./release\qrc_img.o
-./release\qrc_res.o
 ./release\moc_addnews.o
+./release\moc_agreefriend.o
+./release\moc_changeremark.o
+./release\moc_friendgroup.o
 ./release\moc_mainwindow.o
 ./release\moc_logindialog.o
 ./release\moc_filesrvdlg.o

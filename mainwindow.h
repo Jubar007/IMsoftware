@@ -29,13 +29,10 @@ class MainWindow : public QMainWindow
 
 public:
     QString usrid;//当前用户的id
-<<<<<<< HEAD
-    explicit MainWindow(QWidget *parent = nullptr);
-=======
 
-    explicit MainWindow(QWidget *parent = 0);
->>>>>>> pr/15
-    ~MainWindow();    
+    explicit MainWindow(QWidget *parent = nullptr);
+
+    ~MainWindow();
     void initMainWindow();
     void sendUserData(QList<QStringList> data); //在子窗口创建public函数用来获取传递的数据
 
@@ -54,15 +51,10 @@ public:
     void getGroupMenbers(QString);
     void getGroupMebs(QString);
     bool isBelongGroup(QString);
-<<<<<<< HEAD
     void recvFriendAdd(QString ,QString,QStringList);//收到好友申请后处理方法
-
     QStringList peerInfoList;//发送的个人信息表
-
-=======
    void getFriendsList(QString usrid); //好友列表数据获取
     bool haveNewFriend(QString);
->>>>>>> pr/15
 protected:
     //用户数据
     QList<QStringList> myInfo;
@@ -114,10 +106,8 @@ private slots:
     void changeNoticePix(bool);//右上角铃铛有无红点图片改变
 
     void agreeFriends(QString uid,QString friendId,QString nickname);
-<<<<<<< HEAD
-=======
-
     void on_noticePushButton_clicked();
+
 
     void updateFriendsList(QString);
 
@@ -129,7 +119,6 @@ private slots:
     void on_groupCPushButton_clicked();
 
     void changeGroup(QString);
->>>>>>> pr/15
 
 private:
     Ui::MainWindow *ui;

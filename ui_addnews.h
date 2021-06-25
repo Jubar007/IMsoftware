@@ -43,7 +43,7 @@ public:
     {
         if (addNews->objectName().isEmpty())
             addNews->setObjectName(QStringLiteral("addNews"));
-        addNews->resize(379, 348);
+        addNews->resize(379, 53);
         QFont font;
         font.setFamily(QString::fromUtf8("\351\273\221\344\275\223"));
         font.setPointSize(11);

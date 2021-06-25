@@ -208,7 +208,6 @@ Makefile: MyWeiXin.pro ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/win32-g++/qmake.c
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/resolve_config.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/exclusive_builds_post.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/default_post.prf \
-		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/win32/console.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/qml_debug.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/precompile_header.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/warn_on.prf \
@@ -219,11 +218,13 @@ Makefile: MyWeiXin.pro ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/win32-g++/qmake.c
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/uic.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/qmake_use.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/file_copies.prf \
+		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/win32/windows.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/testcase_targets.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/exceptions.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/yacc.prf \
 		../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/lex.prf \
 		MyWeiXin.pro \
+		../../00_AA/QT/5.9.8/mingw53_32/lib/qtmaind.prl \
 		../../00_AA/QT/5.9.8/mingw53_32/lib/Qt5Widgets.prl \
 		../../00_AA/QT/5.9.8/mingw53_32/lib/Qt5Gui.prl \
 		../../00_AA/QT/5.9.8/mingw53_32/lib/Qt5Network.prl \
@@ -378,7 +379,6 @@ Makefile: MyWeiXin.pro ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/win32-g++/qmake.c
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/resolve_config.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/exclusive_builds_post.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/default_post.prf:
-../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/win32/console.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/qml_debug.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/precompile_header.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/warn_on.prf:
@@ -389,11 +389,13 @@ Makefile: MyWeiXin.pro ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/win32-g++/qmake.c
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/uic.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/qmake_use.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/file_copies.prf:
+../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/win32/windows.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/testcase_targets.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/exceptions.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/yacc.prf:
 ../../00_AA/QT/5.9.8/mingw53_32/mkspecs/features/lex.prf:
 MyWeiXin.pro:
+../../00_AA/QT/5.9.8/mingw53_32/lib/qtmaind.prl:
 ../../00_AA/QT/5.9.8/mingw53_32/lib/Qt5Widgets.prl:
 ../../00_AA/QT/5.9.8/mingw53_32/lib/Qt5Gui.prl:
 ../../00_AA/QT/5.9.8/mingw53_32/lib/Qt5Network.prl:

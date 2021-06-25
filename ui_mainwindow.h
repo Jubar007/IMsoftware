@@ -70,6 +70,8 @@ public:
     QLabel *bg;
     QPushButton *addPushButton;
     QPushButton *noticePushButton;
+    QPushButton *nickCPushButton;
+    QPushButton *groupCPushButton;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -164,7 +166,8 @@ public:
         FriendHead->setAutoFillBackground(false);
         OriginalBg = new QLabel(centralWidget);
         OriginalBg->setObjectName(QStringLiteral("OriginalBg"));
-        OriginalBg->setGeometry(QRect(250, 20, 491, 500));
+        OriginalBg->setGeometry(QRect(250, 0, 491, 500));
+        OriginalBg->setFont(font2);
         navLabel = new QLabel(centralWidget);
         navLabel->setObjectName(QStringLiteral("navLabel"));
         navLabel->setGeometry(QRect(0, 450, 250, 61));
@@ -187,11 +190,11 @@ public:
         groupPushButton->setFlat(true);
         nickNameLabel = new QLabel(centralWidget);
         nickNameLabel->setObjectName(QStringLiteral("nickNameLabel"));
-        nickNameLabel->setGeometry(QRect(775, 206, 190, 18));
+        nickNameLabel->setGeometry(QRect(775, 206, 141, 18));
         nickNameLabel->setFont(font2);
         groupLabel = new QLabel(centralWidget);
         groupLabel->setObjectName(QStringLiteral("groupLabel"));
-        groupLabel->setGeometry(QRect(775, 241, 190, 18));
+        groupLabel->setGeometry(QRect(775, 241, 141, 18));
         groupLabel->setFont(font2);
         G_groupHead = new QLabel(centralWidget);
         G_groupHead->setObjectName(QStringLiteral("G_groupHead"));
@@ -277,6 +280,12 @@ public:
         noticePushButton = new QPushButton(centralWidget);
         noticePushButton->setObjectName(QStringLiteral("noticePushButton"));
         noticePushButton->setGeometry(QRect(180, 13, 21, 21));
+        nickCPushButton = new QPushButton(centralWidget);
+        nickCPushButton->setObjectName(QStringLiteral("nickCPushButton"));
+        nickCPushButton->setGeometry(QRect(920, 205, 21, 21));
+        groupCPushButton = new QPushButton(centralWidget);
+        groupCPushButton->setObjectName(QStringLiteral("groupCPushButton"));
+        groupCPushButton->setGeometry(QRect(920, 240, 21, 21));
         MainWindow->setCentralWidget(centralWidget);
         bg->raise();
         HeadTitleBg->raise();
@@ -312,6 +321,8 @@ public:
         OriginalBg->raise();
         addPushButton->raise();
         noticePushButton->raise();
+        nickCPushButton->raise();
+        groupCPushButton->raise();
 
         retranslateUi(MainWindow);
 
@@ -354,6 +365,8 @@ public:
         bg->setText(QString());
         addPushButton->setText(QString());
         noticePushButton->setText(QString());
+        nickCPushButton->setText(QString());
+        groupCPushButton->setText(QString());
     } // retranslateUi
 
 };
