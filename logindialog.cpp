@@ -11,6 +11,7 @@
 #include "mainwindow.h"
 #include "sqlite.h"
 
+
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LoginDialog)
@@ -65,6 +66,7 @@ void LoginDialog::showChatWindow()
     QString uname=ui->usrLineEdit->text();
     QString password=ui->pwdLineEdit->text();
     QString match_password;
+        int im = 0;
     if(db->db_query("select * from User"))
     {
           //qDebug()<<"读取成功";
@@ -81,6 +83,8 @@ void LoginDialog::showChatWindow()
                 //qDebug()<<typeid(db->query).name();//打印查询结果类型QSqlQuery
                 while(db->query.next())//一行一行遍历
                 {
+                    im++;
+                    //qDebug()<<im<<":"<<db->query.value("U_NickName").toString();
                     if(uname==db->query.value("U_NickName").toString()) {
                         seek = true;
                         //密码不正确
@@ -196,7 +200,7 @@ void LoginDialog::on_signPushButton_clicked()
 
 //登录的电话检测
 bool LoginDialog::queryphone(QString phone){
-    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
+    Sqlite *db = new Sqlite("/sqlite/simpleChat.db");
     //判断数据库中是否存在所输入号码
     QString sql = "select * from User  where U_Telephone='"+phone+"'";
     db->db_query(sql);
