@@ -4,8 +4,11 @@
         <file>img/ChatBG.jpg</file>
         <file>img/navBottom.jpg</file>
         <file>img/navBottom_UG.jpg</file>
+<<<<<<< Updated upstream
         <file>img/group1.png</file>
         <file>img/group2.png</file>
+=======
+>>>>>>> Stashed changes
         <file>img/group3.png</file>
         <file>img/boy.png</file>
         <file>img/girl.png</file>
@@ -24,5 +27,9 @@
         <file>img/fileIo.png</file>
         <file>img/download.png</file>
         <file>img/clear.png</file>
+<<<<<<< Updated upstream
+=======
+        <file>img/edit.png</file>
+>>>>>>> Stashed changes
     </qresource>
 </RCC>

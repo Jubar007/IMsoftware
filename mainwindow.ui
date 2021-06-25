@@ -316,7 +316,11 @@
     <property name="geometry">
      <rect>
       <x>250</x>
+<<<<<<< Updated upstream
       <y>20</y>
+=======
+      <y>0</y>
+>>>>>>> Stashed changes
       <width>491</width>
       <height>500</height>
      </rect>
@@ -402,7 +406,11 @@
      <rect>
       <x>775</x>
       <y>206</y>
+<<<<<<< Updated upstream
       <width>190</width>
+=======
+      <width>141</width>
+>>>>>>> Stashed changes
       <height>18</height>
      </rect>
     </property>
@@ -420,7 +428,11 @@
      <rect>
       <x>775</x>
       <y>241</y>
+<<<<<<< Updated upstream
       <width>190</width>
+=======
+      <width>141</width>
+>>>>>>> Stashed changes
       <height>18</height>
      </rect>
     </property>
@@ -714,6 +726,35 @@
      <string/>
     </property>
    </widget>
+<<<<<<< Updated upstream
+=======
+   <widget class="QPushButton" name="nickCPushButton">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>205</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="groupCPushButton">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>240</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+>>>>>>> Stashed changes
    <zorder>bg</zorder>
    <zorder>HeadTitleBg</zorder>
    <zorder>widget</zorder>
@@ -748,6 +789,11 @@
    <zorder>OriginalBg</zorder>
    <zorder>addPushButton</zorder>
    <zorder>noticePushButton</zorder>
+<<<<<<< Updated upstream
+=======
+   <zorder>nickCPushButton</zorder>
+   <zorder>groupCPushButton</zorder>
+>>>>>>> Stashed changes
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

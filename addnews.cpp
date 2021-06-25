@@ -2,6 +2,10 @@
 #include "ui_addnews.h"
 #include "sqlite.h"
 #include <QDebug>
+<<<<<<< Updated upstream
+=======
+#include <QPainter>
+>>>>>>> Stashed changes
 
 addNews::addNews(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +16,16 @@ addNews::addNews(QWidget *parent) :
     ui->SearchLineEdit->setPlaceholderText("用户昵称/群名称");
     ui->verifyTextEdit->setPlaceholderText("我是...");
 }
+<<<<<<< Updated upstream
+=======
+//设置背景图片
+void addNews::paintEvent(QPaintEvent *)
+{
+   QPainter painter(this);
+   painter.setRenderHints(QPainter::SmoothPixmapTransform);
+   painter.drawPixmap(rect(),QPixmap(":/img/perfectData.jpg"),QRect());
+}
+>>>>>>> Stashed changes
 addNews::~addNews()
 {
     delete ui;
@@ -32,6 +46,10 @@ void addNews::on_searchPushButton_clicked()
     uid="";
     if(db->db_query(sql))
     {
+<<<<<<< Updated upstream
+=======
+        setFixedSize(379,348);
+>>>>>>> Stashed changes
         while(db->query.next())//一行一行遍历
         {
         QPixmap pix;
@@ -65,11 +83,21 @@ void addNews::on_sendPushButton_clicked()
     QString reason = ui->verifyTextEdit->toPlainText();
     QString toNick=ui->remarkLineEdit->text();
     QString sql = "INSERT INTO Friends VALUES("+uid+","+myInfo[0][0]+",'"+toNick+"',"+myInfo[0][0]+",False,'"+reason+"')";
+<<<<<<< Updated upstream
     //qDebug()<<sql;
+=======
+
+    qDebug()<<sql;
+>>>>>>> Stashed changes
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     bool success = db->db_query(sql);
     if(!success){
         qDebug()<<"插入数据库失败！";
         return;
+<<<<<<< Updated upstream
+=======
+    }else{
+        ui->sendPushButton->setEnabled(false);//发送申请按钮不可用
+>>>>>>> Stashed changes
     }
 }
