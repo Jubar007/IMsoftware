@@ -588,7 +588,7 @@ void MainWindow::recvAndProcessChatMsg()
             if(myName == udpclickname)
             {
                 //申请者自己的数据库管理
-                agreeFriend(usrInfo[0][0],revPeerInfo[0],revPeerInfo[1]);
+                agreeFriends(usrInfo[0][0],revPeerInfo[0],revPeerInfo[1]);
             }
             break;
         }
@@ -869,7 +869,7 @@ int uid, 当前用户的ID 对应usrInfo[0][0](也是QString类型)--->QList<QSt
 int friendId, 好友的ID（别人的）
 QString nickname：当前用户给好友的备注
 */
-void MainWindow::agreeFriend( QString uid,QString friendId,QString nickname){
+void MainWindow::agreeFriends( QString uid,QString friendId,QString nickname){
     QString updateSql = "update Friends set isFriend=true where F_FirendID = "+friendId+" and F_UserID = "+uid;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     bool successUpdate = db->db_query(updateSql);
@@ -912,7 +912,7 @@ void MainWindow::recvFriendAdd(QString udpmyname,QString udpclickname,QStringLis
              sendChatMsg(AcpFriend,udpmyname,usrInfo[0]);
 
              //将申请者加入数据库
-             agreeFriend(usrInfo[0][0],peerBuffIn[0],peerBuffIn[1]);
+             agreeFriends(usrInfo[0][0],peerBuffIn[0],peerBuffIn[1]);
 
         } else
         {

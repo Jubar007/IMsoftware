@@ -93,7 +93,7 @@ private slots:
 
     void changeNoticePix(bool);//右上角铃铛有无红点图片改变
 
-    void agreeFriend(QString uid,QString friendId,QString nickname);
+    void agreeFriends(QString uid,QString friendId,QString nickname);
 
 private:
     Ui::MainWindow *ui;
