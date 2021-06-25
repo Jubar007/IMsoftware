@@ -1,4 +1,5 @@
 INPUT(
+./release\addnews.o
 ./release\main.o
 ./release\mainwindow.o
 ./release\logindialog.o
@@ -8,8 +9,8 @@ INPUT(
 ./release\sqlite.o
 ./release\useritemdelegate.o
 ./release\qrc_img.o
-./release\qrc_xml.o
 ./release\qrc_res.o
+./release\moc_addnews.o
 ./release\moc_mainwindow.o
 ./release\moc_logindialog.o
 ./release\moc_filesrvdlg.o

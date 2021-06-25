@@ -54,6 +54,8 @@ void addNews::on_searchPushButton_clicked()
 
 void addNews::on_sendPushButton_clicked()
 {
+    emit sendFriAdd(ui->SearchLineEdit->text());
+
     if(uid== "")
         return;
     //查找自己是不是有这个好友

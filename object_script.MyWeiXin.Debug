@@ -1,4 +1,5 @@
 INPUT(
+./debug\addnews.o
 ./debug\main.o
 ./debug\mainwindow.o
 ./debug\logindialog.o
@@ -8,8 +9,8 @@ INPUT(
 ./debug\sqlite.o
 ./debug\useritemdelegate.o
 ./debug\qrc_img.o
-./debug\qrc_xml.o
 ./debug\qrc_res.o
+./debug\moc_addnews.o
 ./debug\moc_mainwindow.o
 ./debug\moc_logindialog.o
 ./debug\moc_filesrvdlg.o

@@ -18,25 +18,25 @@ class FileSrvDlg;
 namespace Ui {
 class MainWindow;
 }
-enum ChatMsgType { ChatMsg, OnLine, OffLine, SfileName, RefFile };//消息类型
+enum ChatMsgType { ChatMsg, OnLine, OffLine, SfileName, RefFile , FriendAdd, RefFriend, AcpFriend};//消息类型
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
     QString usrid;//当前用户的id
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();    
     void initMainWindow();
     void sendUserData(QList<QStringList> data); //在子窗口创建public函数用来获取传递的数据
     void getFriendsList(QString usrid); //好友列表数据获取
     void onLine(QString name, QString time);//处理新用户加入
     void offLine(QString name, QString time);//处理用户离开
-    void sendChatMsg(ChatMsgType msgType, QString rmtName = "");//广播UDP消息
+    void sendChatMsg(ChatMsgType msgType, QString rmtName = "",QStringList={""});//广播UDP消息
     QString getLocHostIp();//获取本端IP地址
     QString getLocChatMsg();//获取本端聊天信息内容
     void recvFileName(QString name, QString hostip, QString rmtname, QString filename);
-    QTextBrowser *userTextBrower=0;
+    QTextBrowser *userTextBrower=nullptr;
     void p2p(QString);
     void chatHistory(QString);
     bool isContacts = true;//底部导航栏选中标识
@@ -45,6 +45,9 @@ public:
     void getGroupMenbers(QString);
     void getGroupMebs(QString);
     bool isBelongGroup(QString);
+    void recvFriendAdd(QString ,QString,QStringList);//收到好友申请后处理方法
+
+    QStringList peerInfoList;//发送的个人信息表
 
 protected:
     //用户及用户的好友数据
@@ -67,7 +70,7 @@ private slots:
     void recvAndProcessChatMsg();//接收并处理UDP数据报
 
     void getSfileName(QString);
-
+    void sendFriendAdd(QString);//发送好友请求处理
     void on_transPushButton_clicked();
 
     void on_contactsPushButton_clicked();

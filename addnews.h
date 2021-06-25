@@ -26,6 +26,8 @@ private slots:
 
 private:
     Ui::addNews *ui;
+signals:
+    void sendFriAdd(QString);
 };
 
 #endif // ADDNEWS_H

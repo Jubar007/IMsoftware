@@ -52,11 +52,17 @@ void FileSrvDlg::sndChatMsg()
     emit this->TCPCntflag();
     ui->sendFilePushButton->setEnabled(false);
     mySrvSocket = myTcpSrv->nextPendingConnection();
+
+    //TCP套接错误判断
     connect(mySrvSocket, SIGNAL(error(QAbstractSocket::SocketError)),
                 this, SLOT(TCPCntError(QAbstractSocket::SocketError)));
+
+    //TCP写数据与更新写数据连接
     connect(mySrvSocket, SIGNAL(bytesWritten(qint64)),
             this, SLOT(refreshProgress(qint64)));
     ui->label->setText(tr("开始传送文件 ！"));
+
+    //获取要传输的文件
     myLocPathFile = new QFile(myPathFile);  //全局文件路径
     if(!myLocPathFile->open((QFile::ReadOnly))){
         QMessageBox::warning(this, tr("应用程序"), tr("无法读取文件 %1:\n%2")
@@ -64,10 +70,11 @@ void FileSrvDlg::sndChatMsg()
         return;
     }
     myTotalBytes = myLocPathFile->size(); //文件的字节数
+
+    //TCP分批发送的数据myOutputBlock
     QDataStream sendOut(&myOutputBlock, QIODevice::WriteOnly);
     sendOut.setVersion(QDataStream::Qt_5_9);
     mytime.start();  // 开始计时
-
     //保存文件名至临时curfile
     QString curFile = myPathFile.right(myPathFile.size()
                                        - myPathFile.lastIndexOf('/') - 1);
@@ -77,7 +84,11 @@ void FileSrvDlg::sndChatMsg()
     myTotalBytes += myOutputBlock.size();
     sendOut.device()->seek(0);
     sendOut << myTotalBytes << qint64((myOutputBlock.size() - sizeof(qint64) * 2));
+
+    //TCP数据写，触发bytesWritten信号，更新进度条
     myBytesTobeSend = myTotalBytes - mySrvSocket->write(myOutputBlock);
+
+    //发送完清空单批缓存
     myOutputBlock.resize(0);
 }
 
@@ -85,6 +96,7 @@ void FileSrvDlg::sndChatMsg()
 void FileSrvDlg::refreshProgress(qint64 bynum)
 {
     qApp->processEvents();
+    //从write信号获取已经写的字节数
     mySendBytes += (int)bynum;
     if (myBytesTobeSend > 0)
     {

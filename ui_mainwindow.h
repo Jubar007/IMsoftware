@@ -31,10 +31,8 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QLabel *label_2;
-    QLabel *label_3;
     QLabel *FriendNameLabel;
     QTextBrowser *chatTextBrowser;
-    QLabel *label_5;
     QTextEdit *chatTextEdit;
     QListView *listView;
     QLabel *userHead;
@@ -68,6 +66,10 @@ public:
     QPushButton *transPushButton;
     QSpacerItem *horizontalSpacer;
     QPushButton *sendPushButton;
+    QLabel *MyHead;
+    QLabel *bg;
+    QPushButton *addPushButton;
+    QPushButton *noticePushButton;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -82,15 +84,10 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(0, 0, 251, 71));
+        label_2->setGeometry(QRect(0, 0, 251, 51));
         label_2->setFrameShape(QFrame::Box);
         label_2->setFrameShadow(QFrame::Sunken);
         label_2->setPixmap(QPixmap(QString::fromUtf8("../../\345\276\256\344\277\241/img/search.jpg")));
-        label_3 = new QLabel(centralWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(250, 0, 492, 67));
-        label_3->setFrameShape(QFrame::Box);
-        label_3->setFrameShadow(QFrame::Sunken);
         FriendNameLabel = new QLabel(centralWidget);
         FriendNameLabel->setObjectName(QStringLiteral("FriendNameLabel"));
         FriendNameLabel->setGeometry(QRect(330, 9, 121, 31));
@@ -102,17 +99,12 @@ public:
         chatTextBrowser = new QTextBrowser(centralWidget);
         chatTextBrowser->setObjectName(QStringLiteral("chatTextBrowser"));
         chatTextBrowser->setGeometry(QRect(250, 65, 491, 300));
-        label_5 = new QLabel(centralWidget);
-        label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(250, 365, 492, 40));
-        label_5->setFrameShape(QFrame::Box);
-        label_5->setFrameShadow(QFrame::Sunken);
         chatTextEdit = new QTextEdit(centralWidget);
         chatTextEdit->setObjectName(QStringLiteral("chatTextEdit"));
         chatTextEdit->setGeometry(QRect(250, 403, 491, 97));
         listView = new QListView(centralWidget);
         listView->setObjectName(QStringLiteral("listView"));
-        listView->setGeometry(QRect(0, 65, 250, 391));
+        listView->setGeometry(QRect(0, 45, 250, 411));
         userHead = new QLabel(centralWidget);
         userHead->setObjectName(QStringLiteral("userHead"));
         userHead->setGeometry(QRect(833, 30, 60, 55));
@@ -236,7 +228,8 @@ public:
         perfectInfoPushButton->setFlat(true);
         widget = new QWidget(centralWidget);
         widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(260, 363, 471, 41));
+        widget->setGeometry(QRect(260, 360, 471, 51));
+        widget->setFont(font4);
         horizontalLayout = new QHBoxLayout(widget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -272,16 +265,24 @@ public:
 
         horizontalLayout->addWidget(sendPushButton);
 
-        historySave->raise();
-        clearHistory->raise();
-        transPushButton->raise();
-        sendPushButton->raise();
+        MyHead = new QLabel(centralWidget);
+        MyHead->setObjectName(QStringLiteral("MyHead"));
+        MyHead->setGeometry(QRect(10, 10, 34, 30));
+        bg = new QLabel(centralWidget);
+        bg->setObjectName(QStringLiteral("bg"));
+        bg->setGeometry(QRect(0, 0, 751, 421));
+        addPushButton = new QPushButton(centralWidget);
+        addPushButton->setObjectName(QStringLiteral("addPushButton"));
+        addPushButton->setGeometry(QRect(213, 13, 21, 21));
+        noticePushButton = new QPushButton(centralWidget);
+        noticePushButton->setObjectName(QStringLiteral("noticePushButton"));
+        noticePushButton->setGeometry(QRect(180, 13, 21, 21));
         MainWindow->setCentralWidget(centralWidget);
-        label_5->raise();
+        bg->raise();
         HeadTitleBg->raise();
+        widget->raise();
         chatTextEdit->raise();
         label_2->raise();
-        label_3->raise();
         FriendNameLabel->raise();
         chatTextBrowser->raise();
         listView->raise();
@@ -298,7 +299,6 @@ public:
         navLabel->raise();
         contactsPushButton->raise();
         groupPushButton->raise();
-        OriginalBg->raise();
         nickNameLabel->raise();
         groupLabel->raise();
         G_groupHead->raise();
@@ -308,7 +308,10 @@ public:
         G_menberTitleLabel->raise();
         G_listView->raise();
         perfectInfoPushButton->raise();
-        widget->raise();
+        MyHead->raise();
+        OriginalBg->raise();
+        addPushButton->raise();
+        noticePushButton->raise();
 
         retranslateUi(MainWindow);
 
@@ -319,9 +322,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         label_2->setText(QString());
-        label_3->setText(QString());
         FriendNameLabel->setText(QApplication::translate("MainWindow", "FriendName", Q_NULLPTR));
-        label_5->setText(QString());
         userHead->setText(QString());
         label->setText(QApplication::translate("MainWindow", "userName", Q_NULLPTR));
         HeadTitleBg->setText(QString());
@@ -345,10 +346,14 @@ public:
         G_NoticeLabel->setText(QApplication::translate("MainWindow", "G_NoticeLabel", Q_NULLPTR));
         G_menberTitleLabel->setText(QApplication::translate("MainWindow", "\347\276\244\346\210\220\345\221\230", Q_NULLPTR));
         perfectInfoPushButton->setText(QApplication::translate("MainWindow", "\345\256\214\345\226\204\344\270\252\344\272\272\344\277\241\346\201\257", Q_NULLPTR));
-        historySave->setText(QString());
-        clearHistory->setText(QString());
-        transPushButton->setText(QString());
+        historySave->setText(QApplication::translate("MainWindow", "\344\277\235\345\255\230", Q_NULLPTR));
+        clearHistory->setText(QApplication::translate("MainWindow", "\346\270\205\347\220\206", Q_NULLPTR));
+        transPushButton->setText(QApplication::translate("MainWindow", "\345\217\221\351\200\201\346\226\207\344\273\266", Q_NULLPTR));
         sendPushButton->setText(QApplication::translate("MainWindow", "\345\217\221 \351\200\201(S)", Q_NULLPTR));
+        MyHead->setText(QString());
+        bg->setText(QString());
+        addPushButton->setText(QString());
+        noticePushButton->setText(QString());
     } // retranslateUi
 
 };

@@ -74,7 +74,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//TODO: 窗口初始化
+//窗口初始化
 void MainWindow::initMainWindow()
 {
     //初始化UDP套接件
@@ -82,6 +82,9 @@ void MainWindow::initMainWindow()
     myUdpPort = 23232;
     myUdpSocket->bind(myUdpPort, QUdpSocket::ShareAddress|QUdpSocket::ReuseAddressHint);
     connect(myUdpSocket, SIGNAL(readyRead()), this, SLOT(recvAndProcessChatMsg()));
+
+
+    //在主函数添加connect (addnew,falg(QString),mainwindow,sendchat(QString))
 }
 
 void MainWindow:: getFriendsList(QString usrid){
@@ -455,7 +458,7 @@ void MainWindow::on_sendPushButton_clicked()
 }
 
 //发UDP广播
-void MainWindow::sendChatMsg(ChatMsgType msgType, QString rmtName)
+void MainWindow::sendChatMsg(ChatMsgType msgType, QString rmtName,QStringList QbuffList)
 {
 
     QByteArray qba;
@@ -483,7 +486,16 @@ void MainWindow::sendChatMsg(ChatMsgType msgType, QString rmtName)
     case RefFile:
         write << locHostIp << rmtName;
         break;
-    }
+    case FriendAdd: //好友申请
+        write <<QbuffList<<locHostIp; //2、IP
+        break;
+    case RefFriend: //拒绝好友申请
+        write <<locHostIp;
+        break;
+    case AcpFriend: //同意好友申请
+        write <<QbuffList<<locHostIp;//附加好友个人信息
+        break;
+    }       
     myUdpSocket->writeDatagram(qba, qba.length(), QHostAddress::Broadcast, myUdpPort);  //完成消息处理后，发出广播
 }
 
@@ -500,6 +512,7 @@ void MainWindow::recvAndProcessChatMsg()
         int msgType;
         read >> msgType; //第一个数据就是  消息类型
         QString udpmyname,udpclickname, hostip, chatmsg, rname, fname;  //紧跟着发送用户名 接收用户名 IP地址 聊天内容 文件接收用户名 文件名等
+        QStringList revPeerInfo;
         QString curtime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
         switch (msgType)
         {
@@ -532,16 +545,25 @@ void MainWindow::recvAndProcessChatMsg()
 
             break;
         }
-//        case OnLine:
-//            read >> name >> hostip;
-//            onLine(name, curtime);
-//            break;
-//        case OffLine:
-//            read >> name;
-//            offLine(name, curtime);
-//            break;
+        case FriendAdd:
+        {
+           qDebug()<<"UDP内容为好友申请";
+           read >> udpmyname >>udpclickname>>revPeerInfo>> hostip;
+           if (udpclickname==myName)
+           {recvFriendAdd(udpmyname,udpclickname,revPeerInfo);} //申请者+申请的人+申请者的信息表
+           break;
+
+        }
+        /*case OnLine:
+            read >> name >> hostip;
+            onLine(name, curtime);
+            break;
+        case OffLine:
+            read >> name;
+            offLine(name, curtime);
+            break;*/
         case SfileName:
-            //发送者用户名+好友名、发送端的Ip、文件名
+            {//发送者用户名+好友名、发送端的Ip、文件名
             read >> udpmyname >> rname >>hostip >>fname;
             qDebug()<<"UDP内容为文件"
                    <<"发送者"<<udpmyname
@@ -549,10 +571,25 @@ void MainWindow::recvAndProcessChatMsg()
                     <<"当前用户"<<myName;
             if (myName == rname)
             {recvFileName(udpmyname, hostip, rname, fname);}
-            break;
+            break;}
         case RefFile:
-            read >> udpmyname >> rname >>hostip >>fname;
+        {read >> udpmyname >> rname >>hostip >>fname;
             if (myName == rname) myfsrv->cntRefused();
+            break;}
+        case RefFriend:
+            read >> udpmyname >>udpclickname>> hostip;
+            if(myName == udpclickname)
+            {
+                QMessageBox::warning(nullptr, QObject::tr("提示"), tr(" %1 拒绝了你的好友申请！").arg(udpmyname));
+            }
+            break;
+        case AcpFriend:
+            read >>udpmyname>>udpclickname>>revPeerInfo>>hostip; //申请者+申请的好友+申请者的个人信息
+            if(myName == udpclickname)
+            {
+                //申请者自己的数据库管理
+                agreeFriend(usrInfo[0][0],revPeerInfo[0],revPeerInfo[1]);
+            }
             break;
         }
     }
@@ -598,7 +635,7 @@ void MainWindow::on_transPushButton_clicked()
     myfsrv = new FileSrvDlg(this);
     connect(myfsrv, SIGNAL(sendFileName(QString)), this, SLOT(getSfileName(QString)));
     myfsrv->show();
-//    //每次点击必须初始化
+//    //每次必须初始化
 //    myfsrv->initServer();
 
 }
@@ -630,12 +667,12 @@ void MainWindow::recvFileName(QString name, QString hostip, QString rmtname, QSt
                 fcnt->show();
             }
         } else {
-            sendChatMsg(RefFile, name); //TODO:拒绝处理文件
+            sendChatMsg(RefFile, name);
         }
     }
 }
 
-//点击导航栏联系人按钮
+//导航栏联系人按钮
 void MainWindow::on_contactsPushButton_clicked()
 {
     //控件可见性设置
@@ -664,7 +701,7 @@ void MainWindow::on_contactsPushButton_clicked()
     ui->listView->setModel(m_pModel);
 }
 
-//点击导航栏群聊按钮
+//导航栏群聊按钮
 void MainWindow::on_groupPushButton_clicked()
 {
     isContacts = false;
@@ -710,7 +747,7 @@ void MainWindow::on_groupPushButton_clicked()
     ui->listView->setModel(m_pModel);
 }
 
-//点击完善个人信息
+//完善个人信息
 void MainWindow::on_perfectInfoPushButton_clicked()
 {
     perfectWindow = new perfectPersonalData();
@@ -832,7 +869,7 @@ int uid, 当前用户的ID 对应usrInfo[0][0](也是QString类型)--->QList<QSt
 int friendId, 好友的ID（别人的）
 QString nickname：当前用户给好友的备注
 */
-void MainWindow::agreeFriend(QString uid,QString friendId,QString nickname){
+void MainWindow::agreeFriend( QString uid,QString friendId,QString nickname){
     QString updateSql = "update Friends set isFriend=true where F_FirendID = "+friendId+" and F_UserID = "+uid;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     bool successUpdate = db->db_query(updateSql);
@@ -847,11 +884,39 @@ void MainWindow::agreeFriend(QString uid,QString friendId,QString nickname){
         return;
     }
 }
+
+//申请添加好友
 void MainWindow::on_addPushButton_clicked()
 {
     addWindow = new addNews();
     addWindow->setWindowTitle("添加好友/群");
     addWindow->sendData(usrInfo); //直接调用public函数将本页面中lineEdit的数据传递过去
+    connect(addWindow,SIGNAL(sendFriAdd(QString)),this,SLOT(sendFriendAdd(QString)));
     //窗口显示
     addWindow->show();
+}
+
+void MainWindow::sendFriendAdd(QString rmtname)
+{
+    sendChatMsg(FriendAdd,rmtname,usrInfo[0]);
+}
+//处理好友申请
+void MainWindow::recvFriendAdd(QString udpmyname,QString udpclickname,QStringList peerBuffIn)
+{
+    if(udpclickname==myName)
+    {
+        int result = QMessageBox::information(this, tr("好友申请"), tr("陌生人 %1 申请加您为好友，是否接收？").arg(udpmyname), QMessageBox::Yes, QMessageBox::No);
+        if (result == QMessageBox::Yes)
+        {
+            //发送同意加好友 +并附上个人信息，QStringList==usrinfo
+             sendChatMsg(AcpFriend,udpmyname,usrInfo[0]);
+
+             //将申请者加入数据库
+             agreeFriend(usrInfo[0][0],peerBuffIn[0],peerBuffIn[1]);
+
+        } else
+        {
+            sendChatMsg(RefFriend, udpmyname);
+        }
+    }
 }
