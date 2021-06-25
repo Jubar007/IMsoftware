@@ -2,6 +2,7 @@
 #include "ui_addnews.h"
 #include "sqlite.h"
 #include <QDebug>
+#include <QPainter>
 
 addNews::addNews(QWidget *parent) :
     QWidget(parent),
@@ -11,6 +12,13 @@ addNews::addNews(QWidget *parent) :
     //提示文字
     ui->SearchLineEdit->setPlaceholderText("用户昵称/群名称");
     ui->verifyTextEdit->setPlaceholderText("我是...");
+}
+//设置背景图片
+void addNews::paintEvent(QPaintEvent *)
+{
+   QPainter painter(this);
+   painter.setRenderHints(QPainter::SmoothPixmapTransform);
+   painter.drawPixmap(rect(),QPixmap(":/img/perfectData.jpg"),QRect());
 }
 addNews::~addNews()
 {
@@ -32,6 +40,7 @@ void addNews::on_searchPushButton_clicked()
     uid="";
     if(db->db_query(sql))
     {
+        setFixedSize(379,348);
         while(db->query.next())//一行一行遍历
         {
         QPixmap pix;
@@ -67,11 +76,14 @@ void addNews::on_sendPushButton_clicked()
     QString reason = ui->verifyTextEdit->toPlainText();
     QString toNick=ui->remarkLineEdit->text();
     QString sql = "INSERT INTO Friends VALUES("+uid+","+myInfo[0][0]+",'"+toNick+"',"+myInfo[0][0]+",False,'"+reason+"')";
-    //qDebug()<<sql;
+
+    qDebug()<<sql;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     bool success = db->db_query(sql);
     if(!success){
         qDebug()<<"插入数据库失败！";
         return;
+    }else{
+        ui->sendPushButton->setEnabled(false);//发送申请按钮不可用
     }
 }

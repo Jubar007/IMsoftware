@@ -15,6 +15,7 @@
 #include "sqlite.h"
 #include "perfectpersonaldata.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -56,11 +57,25 @@ MainWindow::MainWindow(QWidget *parent) :
     //默认选中联系人
     isContacts = true;
     GroupVisible(false);//群聊控件不可见
+    //编辑按钮样式修改
+    QIcon iconedit;
+     iconedit.addFile(":/img/edit.png");//添加图形，将加载进来的资源进行保存
+     ui->nickCPushButton->setIcon(iconedit);
+     ui->nickCPushButton->setIconSize(QSize(15,15));
+     ui->nickCPushButton->setStyleSheet("QPushButton{background-color:rgb(255,255,255);"
+                           "border:0px solid gray;}");
+
+     ui->groupCPushButton->setIcon(iconedit);
+     ui->groupCPushButton->setIconSize(QSize(15,15));
+     ui->groupCPushButton->setStyleSheet("QPushButton{background-color:rgb(255,255,255);"
+                           "border:0px solid gray;}");
     //聊天操作按钮不可见设置
     ui->clearHistory->setVisible(false);
     ui->historySave->setVisible(false);
     ui->sendPushButton->setVisible(false);
     ui->transPushButton->setVisible(false);
+    ui->nickCPushButton->setVisible(false);
+    ui->groupCPushButton->setVisible(false);
 
     ui->perfectInfoPushButton->setStyleSheet("color:white;");
 
@@ -86,12 +101,31 @@ void MainWindow::initMainWindow()
 
     //在主函数添加connect (addnew,falg(QString),mainwindow,sendchat(QString))
 }
-
+//判断是否有好友添加自己
+bool MainWindow:: haveNewFriend(QString usrid){
+    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
+    QString sql ="select addReason,U_NickName,U_HeadPortrait,U_SignaTure,U_ID from Friends,User where F_FirendID = "+usrid+" and isFriend = false and U_ID = F_UserID";
+    if(db->db_query(sql)){
+        while(db->query.next()){
+            QStringList info;
+            info.append(db->query.value("U_NickName").toString());//0
+            info.append(db->query.value("U_HeadPortrait").toString());
+            info.append(db->query.value("addReason").toString());
+            info.append(db->query.value("U_SignaTure").toString());
+            info.append(db->query.value("U_ID").toString());
+            newFriendInfo.append(info);
+            return true;
+        }
+    }else
+        return false;
+}
+//好友列表加载
 void MainWindow:: getFriendsList(QString usrid){
+    usrInfo = myInfo;
     QTextCodec::setCodecForLocale (QTextCodec:: codecForLocale ()) ;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
-    QString sql ="select U_ID,U_HeadPortrait,F_Name,U_NickName,U_SignaTure,U_Sex,U_Birthday,U_Telephone,U_Email,US_Name,FG_Name,isFriend from Friends,User,UserState,FriendGroups where Friends.F_UserID ="+usrid+" and Friends.F_FirendID = User.U_ID and User.U_UserStateID = UserState.US_ID and FriendGroups.FG_UserID = "+usrid;
-     qDebug()<<sql;
+    QString sql ="select U_ID,U_HeadPortrait,F_Name,U_NickName,U_SignaTure,U_Sex,U_Birthday,U_Telephone,U_Email,US_Name,FG_Name,isFriend from Friends,User,UserState,FriendGroups where Friends.F_UserID ="+usrid+" and Friends.F_FirendID = User.U_ID and User.U_UserStateID = UserState.US_ID and FriendGroups.FG_ID=F_FriendGroupsID and FriendGroups.FG_UserID = "+usrid;
+    //qDebug()<<sql;
     if(db->db_query(sql))
     {
         while(db->query.next()){
@@ -139,6 +173,8 @@ void MainWindow::contactVisible(bool canv){
     ui->nickNameLabel->setVisible(canv);
     ui->groupLabel->setVisible(canv);
     ui->perfectInfoPushButton->setVisible(canv);
+    ui->nickCPushButton->setVisible(canv);
+    ui->groupCPushButton->setVisible(canv);
     ui->perfectInfoPushButton->setStyleSheet("color:white;");
 }
 
@@ -162,6 +198,8 @@ void MainWindow::GroupVisible(bool canv){
 //单击鼠标单击item信息
 void MainWindow::on_listView_clicked(const QModelIndex &index)
 {
+    ui->nickCPushButton->setVisible(true);
+    ui->groupCPushButton->setVisible(true);
     ui->nickNameLabel->setVisible(true);
     ui->groupLabel->setVisible(true);
     ui->perfectInfoPushButton->setVisible(false);
@@ -189,7 +227,7 @@ void MainWindow::on_listView_clicked(const QModelIndex &index)
     //资料卡片内容对应变化
     //判断选中的导航栏是联系人还是群聊
     if(isContacts){
-    int s = index.row()+1;
+    s = index.row()+1;
     QPixmap pix1;
     QImage image1(usrInfo[s][7]);//filename，图片的路径名字
     ui->userHead->setPixmap(pix1.fromImage(image1));// ui->pix就是label的控件名字
@@ -390,9 +428,10 @@ void MainWindow::sendUserData(QList<QStringList> data)
 {
     //当前用户属性，全局变量
     myName = data[0][1];
-
+    myInfo = data;
     usrInfo = data;
     //绑定个人资料控件
+
     QPixmap pix;
     QImage image(data[0][7]);//filename，图片的路径名字
     ui->userHead->setPixmap(pix.fromImage(image));// ui->pix就是label的控件名字
@@ -410,9 +449,16 @@ void MainWindow::sendUserData(QList<QStringList> data)
      ui->addPushButton->setIconSize(QSize(21,21));
      ui->addPushButton->setStyleSheet("QPushButton{background-color:rgb(178,206,254);"
                            "border:0px solid gray;}"); //边界宽度，样式，颜色
+    //检查有没有人申请加自己->铃铛是否有红点加载
+     bool haveFriend = haveNewFriend(data[0][0]);
+
+
 
      QIcon icon2;
-      icon2.addFile(":/img/notice.png");//添加图形，将加载进来的资源进行保存
+     if(haveFriend)
+         icon2.addFile(":/img/notice_a.png");
+     else
+         icon2.addFile(":/img/notice.png");//添加图形，将加载进来的资源进行保存
       ui->noticePushButton->setIcon(icon2);
       ui->noticePushButton->setIconSize(QSize(21,21));
       ui->noticePushButton->setStyleSheet("QPushButton{background-color:rgb(178,206,254);"
@@ -869,7 +915,11 @@ int uid, 当前用户的ID 对应usrInfo[0][0](也是QString类型)--->QList<QSt
 int friendId, 好友的ID（别人的）
 QString nickname：当前用户给好友的备注
 */
+<<<<<<< HEAD
 void MainWindow::agreeFriends( QString uid,QString friendId,QString nickname){
+=======
+void MainWindow::agreeFriends(QString uid,QString friendId,QString nickname){
+>>>>>>> pr/15
     QString updateSql = "update Friends set isFriend=true where F_FirendID = "+friendId+" and F_UserID = "+uid;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     bool successUpdate = db->db_query(updateSql);
@@ -896,6 +946,7 @@ void MainWindow::on_addPushButton_clicked()
     addWindow->show();
 }
 
+<<<<<<< HEAD
 void MainWindow::sendFriendAdd(QString rmtname)
 {
     sendChatMsg(FriendAdd,rmtname,usrInfo[0]);
@@ -919,4 +970,88 @@ void MainWindow::recvFriendAdd(QString udpmyname,QString udpclickname,QStringLis
             sendChatMsg(RefFriend, udpmyname);
         }
     }
+=======
+void MainWindow::on_noticePushButton_clicked()
+{
+    agreeFriendWindow = new agreeFriend();
+    agreeFriendWindow->setWindowTitle("新好友");
+     connect(agreeFriendWindow, SIGNAL(sendData(QString)), this, SLOT(updateFriendsList(QString)));
+    agreeFriendWindow->getFriendData(newFriendInfo,usrInfo[0][0]); //直接调用public函数将本页面中lineEdit的数据传递过去
+     agreeFriendWindow->show();
+}
+
+void  MainWindow::updateFriendsList(QString usrid){
+    usrInfo.clear();
+    usrInfo = myInfo;
+    QTextCodec::setCodecForLocale (QTextCodec:: codecForLocale ()) ;
+    Sqlite *db = new Sqlite("sqlite/simpleChat.db");
+    QString sql ="select U_ID,U_HeadPortrait,F_Name,U_NickName,U_SignaTure,U_Sex,U_Birthday,U_Telephone,U_Email,US_Name,FG_Name,isFriend from Friends,User,UserState,FriendGroups where Friends.F_UserID ="+usrid+" and Friends.F_FirendID = User.U_ID and User.U_UserStateID = UserState.US_ID and FriendGroups.FG_ID=F_FriendGroupsID and FriendGroups.FG_UserID = "+usrid;
+    //qDebug()<<sql;
+    if(db->db_query(sql))
+    {
+        while(db->query.next()){
+            if(db->query.value("isFriend").toString()=="1"){//同意添加好友显示
+            //ListView绑定
+            headpics.append(db->query.value("U_HeadPortrait").toString());
+            names.append(db->query.value("F_Name").toString());
+            userSignal.append(db->query.value("U_SignaTure").toString());
+            //qDebug()<<db->query.value("isFriend").toString();//转换成string类型显示出的为“1”
+            //用户及用户的好友数据更新
+            QStringList info;
+            info.append(db->query.value("U_ID").toString());//0
+            info.append(db->query.value("U_NickName").toString());
+            info.append(db->query.value("U_SignaTure").toString());
+            info.append(db->query.value("U_Sex").toString());
+            info.append(db->query.value("U_Birthday").toString());
+            info.append(db->query.value("U_Telephone").toString());//5
+             info.append(db->query.value("U_Email").toString());
+            info.append(db->query.value("U_HeadPortrait").toString());
+            info.append(db->query.value("US_Name").toString());
+            info.append(db->query.value("FG_Name").toString());
+            info.append(db->query.value("F_Name").toString());
+            usrInfo.append(info);
+            }
+        }
+     }
+    //重新绑定ListView
+    m_pModel = new QStandardItemModel;
+    for (int i=1; i<usrInfo.size(); ++i) {
+        QStandardItem *pItem = new QStandardItem;
+        UserItemData ItemData;
+        ItemData.sUserName = usrInfo[i][10];
+        ItemData.userSignalTrue = usrInfo[i][2];
+        ItemData.sHeadPic = usrInfo[i][7];
+        pItem->setData(QVariant::fromValue(ItemData), Qt::UserRole+1);
+        m_pModel->appendRow(pItem);
+    }
+    UserItemDelegate* pUserItemDelegate = new UserItemDelegate;
+    ui->listView->setItemDelegate(pUserItemDelegate);
+    ui->listView->setModel(m_pModel);
+}
+
+void MainWindow::on_nickCPushButton_clicked()
+{
+    changeRemarkWindow = new changeRemark();
+    changeRemarkWindow->setWindowTitle("修改备注");
+    connect(changeRemarkWindow, SIGNAL(sendData(QString)), this, SLOT(changeRemarks(QString)));
+    changeRemarkWindow->getFriendData(usrInfo[0][0],usrInfo[s][0],usrInfo[s][10]); //直接调用public函数将本页面中lineEdit的数据传递过去
+     changeRemarkWindow->show();
+}
+
+void MainWindow::changeRemarks(QString f){
+    ui->nickNameLabel->setText("备注："+f);
+    updateFriendsList(usrInfo[0][0]);
+}
+
+void MainWindow::on_groupCPushButton_clicked()
+{
+    friendGroupWindow = new friendGroup();
+    friendGroupWindow->setWindowTitle("分组设置");
+    connect(friendGroupWindow, SIGNAL(sendData(QString)), this, SLOT(changeGroup(QString)));
+    friendGroupWindow->getFriendData(usrInfo[0][0],usrInfo[s][0],usrInfo[s][9]);
+     friendGroupWindow->show();
+}
+void MainWindow::changeGroup(QString g){
+    ui->groupLabel->setText("分组："+ g);
+>>>>>>> pr/15
 }

@@ -316,7 +316,7 @@
     <property name="geometry">
      <rect>
       <x>250</x>
-      <y>20</y>
+      <y>0</y>
       <width>491</width>
       <height>500</height>
      </rect>
@@ -402,7 +402,7 @@
      <rect>
       <x>775</x>
       <y>206</y>
-      <width>190</width>
+      <width>141</width>
       <height>18</height>
      </rect>
     </property>
@@ -420,7 +420,7 @@
      <rect>
       <x>775</x>
       <y>241</y>
-      <width>190</width>
+      <width>141</width>
       <height>18</height>
      </rect>
     </property>
@@ -714,6 +714,32 @@
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="nickCPushButton">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>205</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="groupCPushButton">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>240</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>bg</zorder>
    <zorder>HeadTitleBg</zorder>
    <zorder>widget</zorder>
@@ -748,6 +774,8 @@
    <zorder>OriginalBg</zorder>
    <zorder>addPushButton</zorder>
    <zorder>noticePushButton</zorder>
+   <zorder>nickCPushButton</zorder>
+   <zorder>groupCPushButton</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
