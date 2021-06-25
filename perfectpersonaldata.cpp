@@ -52,7 +52,7 @@ void perfectPersonalData::on_savePushButton_clicked()
     //获取用户输入的信息
     QString nickname = ui->NicknameLineEdit->text();
     QString sexIndex = QString::number(ui->sexComboBox->currentIndex()+1);
-   //qDebug()<<sexIndex;
+   qDebug()<<sexIndex;
    QString sex = ui->sexComboBox->currentText();
     QString head=":/img/boy.png";
     if(sex=="女") head=":/img/girl.png";
@@ -63,7 +63,7 @@ void perfectPersonalData::on_savePushButton_clicked()
     QString syno = ui->synopsisTextEdit->toPlainText();
     //数据库更新
     QString sql = "update User set U_NickName='"+nickname+"',U_SignaTure='"+syno+"',U_Sex="+sexIndex+",U_Birthday='"+dtStr+"',U_Telephone='"+phone+"',U_Email='"+email+"',U_HeadPortrait='"+head+"' where U_ID="+userid;
-    //qDebug()<<sql;
+    qDebug()<<sql;
     Sqlite *db = new Sqlite("sqlite/simpleChat.db");
     bool success = db->db_query(sql);
     if(!success){
