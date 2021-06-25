@@ -16,10 +16,6 @@ class addNews : public QWidget
 public:
     explicit addNews(QWidget *parent = nullptr);
     ~addNews();
-<<<<<<< Updated upstream
-=======
-     void paintEvent(QPaintEvent *);
->>>>>>> Stashed changes
 
     void sendData(QList<QStringList> data); //在子窗口创建public函数用来获取传递的数据
 

@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
-=======
->>>>>>> Stashed changes
 <!-- Written by QtCreator 4.10.1, 2021-05-29T20:37:21. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
   <value type="QByteArray">{a2a2cc79-cb79-40e2-96a6-1dfd522a97fe}</value>
-<<<<<<< Updated upstream
-========
-<!-- Written by QtCreator 4.10.1, 2021-06-23T17:23:14. -->
-<qtcreator>
- <data>
-  <variable>EnvironmentId</variable>
-  <value type="QByteArray">{0b88fe3e-806b-4c1a-8811-4c73970d2f8d}</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
->>>>>>> Stashed changes
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -72,50 +58,21 @@
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey">
     <value type="QString">-fno-delayed-template-parsing</value>
    </valuelist>
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
    <value type="bool" key="ClangCodeModel.UseGlobalConfig">false</value>
    <value type="QString" key="ClangCodeModel.WarningConfigId">{b9d7e546-880f-444b-be19-5c96d2cb45e0}</value>
-========
-   <value type="bool" key="ClangCodeModel.UseGlobalConfig">true</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-   <value type="bool" key="ClangCodeModel.UseGlobalConfig">false</value>
-   <value type="QString" key="ClangCodeModel.WarningConfigId">{b9d7e546-880f-444b-be19-5c96d2cb45e0}</value>
->>>>>>> Stashed changes
   </valuemap>
  </data>
  <data>
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 5.13.2 MinGW 64-bit</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 5.13.2 MinGW 64-bit</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt5.5132.win64_mingw73_kit</value>
-========
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 5.9.8 MinGW 32bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 5.9.8 MinGW 32bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt5.598.win32_mingw53_kit</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 5.13.2 MinGW 64-bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 5.13.2 MinGW 64-bit</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt5.5132.win64_mingw73_kit</value>
->>>>>>> Stashed changes
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/QT/QT5code/CH19/MyWeiXin</value>
-========
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:/04_GitHub/IMsoftware</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/QT/QT5code/CH19/MyWeiXin</value>
->>>>>>> Stashed changes
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -171,15 +128,7 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/QT/QT5-源程序/CH19/build-MyWeiXin-Desktop_Qt_5_13_2_MinGW_64_bit-Release</value>
-========
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:/04_GitHub/IMsoftware</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/QT/QT5-源程序/CH19/build-MyWeiXin-Desktop_Qt_5_13_2_MinGW_64_bit-Release</value>
->>>>>>> Stashed changes
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -190,15 +139,7 @@
       <value type="QString" key="QtProjectManager.QMakeBuildStep.QMakeArguments"></value>
       <value type="bool" key="QtProjectManager.QMakeBuildStep.QMakeForced">false</value>
       <value type="bool" key="QtProjectManager.QMakeBuildStep.SeparateDebugInfo">false</value>
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
       <value type="bool" key="QtProjectManager.QMakeBuildStep.UseQtQuickCompiler">true</value>
-========
-      <value type="bool" key="QtProjectManager.QMakeBuildStep.UseQtQuickCompiler">false</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-      <value type="bool" key="QtProjectManager.QMakeBuildStep.UseQtQuickCompiler">true</value>
->>>>>>> Stashed changes
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -243,15 +184,7 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.2">
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/QT/QT5-源程序/CH19/build-MyWeiXin-Desktop_Qt_5_13_2_MinGW_64_bit-Profile</value>
-========
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:/02_work/04_QT/04_IMsoft/build-MyWeiXin-Desktop_Qt_5_9_8_MinGW_32bit-Profile</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/QT/QT5-源程序/CH19/build-MyWeiXin-Desktop_Qt_5_13_2_MinGW_64_bit-Profile</value>
->>>>>>> Stashed changes
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -262,15 +195,7 @@
       <value type="QString" key="QtProjectManager.QMakeBuildStep.QMakeArguments"></value>
       <value type="bool" key="QtProjectManager.QMakeBuildStep.QMakeForced">false</value>
       <value type="bool" key="QtProjectManager.QMakeBuildStep.SeparateDebugInfo">true</value>
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
       <value type="bool" key="QtProjectManager.QMakeBuildStep.UseQtQuickCompiler">true</value>
-========
-      <value type="bool" key="QtProjectManager.QMakeBuildStep.UseQtQuickCompiler">false</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-      <value type="bool" key="QtProjectManager.QMakeBuildStep.UseQtQuickCompiler">true</value>
->>>>>>> Stashed changes
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -330,10 +255,6 @@
    <value type="int" key="ProjectExplorer.Target.DeployConfigurationCount">1</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.PluginSettings"/>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.0">
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
-=======
->>>>>>> Stashed changes
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>
     <valuelist type="QVariantList" key="Analyzer.Perf.Events">
      <value type="QString">cpu-cycles</value>
@@ -343,11 +264,6 @@
     <value type="QString" key="Analyzer.Perf.SampleMode">-F</value>
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
     <value type="int" key="Analyzer.Perf.StackSize">4096</value>
-<<<<<<< Updated upstream
-========
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
->>>>>>> Stashed changes
     <value type="bool" key="Analyzer.QmlProfiler.AggregateTraces">false</value>
     <value type="bool" key="Analyzer.QmlProfiler.FlushEnabled">false</value>
     <value type="uint" key="Analyzer.QmlProfiler.FlushInterval">1000</value>
@@ -362,14 +278,7 @@
     <value type="double" key="Analyzer.Valgrind.Callgrind.MinimumCostRatio">0.01</value>
     <value type="double" key="Analyzer.Valgrind.Callgrind.VisualisationMinimumCostRatio">10</value>
     <value type="bool" key="Analyzer.Valgrind.FilterExternalIssues">true</value>
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
     <value type="QString" key="Analyzer.Valgrind.KCachegrindExecutable">kcachegrind</value>
-========
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-    <value type="QString" key="Analyzer.Valgrind.KCachegrindExecutable">kcachegrind</value>
->>>>>>> Stashed changes
     <value type="int" key="Analyzer.Valgrind.LeakCheckOnFinish">1</value>
     <value type="int" key="Analyzer.Valgrind.NumCallers">25</value>
     <valuelist type="QVariantList" key="Analyzer.Valgrind.RemovedSuppressionFiles"/>
@@ -399,16 +308,7 @@
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">MyWeiXin</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">MyWeiXin2</value>
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:E:/QT/QT5code/CH19/MyWeiXin/MyWeiXin.pro</value>
-========
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/04_GitHub/IMsoftware/MyWeiXin.pro</value>
-    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">MyWeiXin.pro</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:E:/QT/QT5code/CH19/MyWeiXin/MyWeiXin.pro</value>
->>>>>>> Stashed changes
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
@@ -417,19 +317,8 @@
     <value type="bool" key="RunConfiguration.UseMultiProcess">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">E:/QT/QT5code/CH19/MyWeiXin</value>
-========
-    <value type="bool" key="RunConfiguration.UseTerminal">false</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/04_GitHub/IMsoftware</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
-    <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">E:/QT/QT5code/CH19/MyWeiXin</value>
->>>>>>> Stashed changes
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
@@ -440,24 +329,10 @@
  </data>
  <data>
   <variable>ProjectExplorer.Project.Updater.FileVersion</variable>
-<<<<<<< Updated upstream
-<<<<<<<< Updated upstream:MyWeiXin.pro.user.a2a2cc7.22
-=======
->>>>>>> Stashed changes
   <value type="int">22</value>
  </data>
  <data>
   <variable>Version</variable>
   <value type="int">22</value>
-<<<<<<< Updated upstream
-========
-  <value type="int">20</value>
- </data>
- <data>
-  <variable>Version</variable>
-  <value type="int">20</value>
->>>>>>>> Stashed changes:MyWeiXin.pro.user.0b88fe3.4.9-pre1
-=======
->>>>>>> Stashed changes
  </data>
 </qtcreator>
