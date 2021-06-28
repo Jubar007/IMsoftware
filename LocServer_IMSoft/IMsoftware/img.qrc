@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/bgLogin.jpg</file>
+        <file>img/ChatBG.jpg</file>
+        <file>img/navBottom.jpg</file>
+        <file>img/navBottom_UG.jpg</file>
+        <file>img/group3.png</file>
+        <file>img/boy.png</file>
+        <file>img/girl.png</file>
+        <file>img/InfoBg.jpg</file>
+        <file>img/InfoGroupBg.jpg</file>
+        <file>img/loginBg.jpg</file>
+        <file>img/signInBg.jpg</file>
+        <file>img/perfectData.jpg</file>
+        <file>img/add.png</file>
+        <file>img/bg.png</file>
+        <file>img/notice.png</file>
+        <file>img/boy_a.png</file>
+        <file>img/girl_a.png</file>
+        <file>img/group3_a.png</file>
+        <file>img/notice_a.png</file>
+        <file>img/fileIo.png</file>
+        <file>img/download.png</file>
+        <file>img/clear.png</file>
+        <file>img/edit.png</file>
+    </qresource>
+</RCC>
